@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+Install the tested prerelease CLI, then add the oofui skill to a new project.
+
+00:00:05.000 --> 00:00:10.000
+Use $oofui to add a UI for the player inventory in this new Roblox game.
+
+00:00:10.000 --> 00:00:17.000
+The agent reads the installed skill and adds the Inventory kit, its dependencies, and Circuit.
+
+00:00:17.000 --> 00:00:22.000
+The new game builds with the installed library. Build success is followed by native Play verification.
+
+00:00:22.000 --> 00:00:34.000
+Actual Roblox Studio Play: select equipment, equip it, search, and clear the filter.

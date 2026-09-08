@@ -12,6 +12,14 @@ and materials without replacing your game’s controls.
 | --- | --- |
 | ![Default outpost](docs/media/default-outpost.png) | ![Light island](docs/media/light-island.png) |
 
+## From a prompt to a player inventory
+
+[![Watch the oofui agent workflow](docs/media/install-demo-poster.jpg)](docs/media/install-demo.mp4)
+
+A 34-second prerelease walkthrough: install the skill, ask for an inventory,
+then use the agent-built UI in Roblox Studio. The demo uses the Pro Plus
+Inventory kit and Circuit theme. Core's skill and primitives remain free.
+
 ## Add it to your game
 
 The CLI adds editable source, resolves dependencies, connects Rojo, and installs
