@@ -1,0 +1,82 @@
+[package]
+name = "bytespell/oof-ui-primitives"
+description = "Themeable React-Luau GUI primitives built on native Roblox controls"
+version = "0.1.0"
+license = "MIT"
+authors = ["bytespell"]
+realm = "shared"
+registry = "https://github.com/UpliftGames/wally-index"
+include = [
+  "src", "src/styles", "src/components", "src/internal", "src/styles/rules", "src/styles/presets",
+  "src/Dependencies.luau",
+  "src/components/Button.luau",
+  "src/components/Checkbox.luau",
+  "src/components/Container.luau",
+  "src/components/Dialog.luau",
+  "src/components/Field.luau",
+  "src/components/FieldContent.luau",
+  "src/components/FieldDescription.luau",
+  "src/components/FieldError.luau",
+  "src/components/FieldGroup.luau",
+  "src/components/FieldLabel.luau",
+  "src/components/HoldButton.luau",
+  "src/components/IconButton.luau",
+  "src/components/ProgressBar.luau",
+  "src/components/RadialProgress.luau",
+  "src/components/RadioGroup.luau",
+  "src/components/RadioGroupItem.luau",
+  "src/components/Separator.luau",
+  "src/components/Switch.luau",
+  "src/components/Text.luau",
+  "src/components/TextField.luau",
+  "src/init.luau",
+  "src/internal/ControlChrome.luau",
+  "src/internal/ButtonBadge.luau",
+  "src/internal/FieldContext.luau",
+  "src/internal/Icon.luau",
+  "src/internal/MaterialLayer.luau",
+  "src/internal/Math.luau",
+  "src/internal/RadioGroupContext.luau",
+  "src/internal/Refs.luau",
+  "src/internal/SelectionImage.luau",
+  "src/internal/Tags.luau",
+  "src/internal/inputsMatch.luau",
+  "src/internal/useChoiceControl.luau",
+  "src/internal/useControllableState.luau",
+  "src/internal/useReducedMotion.luau",
+  "src/internal/useSelectionState.luau",
+  "src/internal/useTextHeight.luau",
+  "src/styles/Palette.luau",
+  "src/styles/Rule.luau",
+  "src/styles/SharedTokens.luau",
+  "src/styles/StyleProvider.luau",
+  "src/styles/StyleSheet.luau",
+  "src/styles/Theme.luau",
+  "src/styles/init.luau",
+  "src/styles/presets/default.luau",
+  "src/styles/presets/light.luau",
+  "src/styles/presets/registry.json",
+  "src/styles/rules/AdvancedRules.luau",
+  "src/styles/rules/ButtonRules.luau",
+  "src/styles/rules/ContainerRules.luau",
+  "src/styles/rules/DialogRules.luau",
+  "src/styles/rules/FieldRules.luau",
+  "src/styles/rules/ProgressRules.luau",
+  "src/styles/rules/SelectionRules.luau",
+  "src/styles/rules/TextFieldRules.luau",
+  "src/styles/rules/TypographyRules.luau",
+  "src/types.luau",
+  "wally.toml",
+  "wally.lock",
+  "default.project.json",
+  "README.md",
+  "LICENSE",
+]
+exclude = ["**"]
+
+[dependencies]
+React = "jsdotlua/react@17.2.1"
+ReactRoblox = "jsdotlua/react-roblox@17.2.1"
+
+[dev-dependencies]
+TestEZ = "roblox/testez@0.4.1"

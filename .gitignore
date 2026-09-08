@@ -1,0 +1,10 @@
+Packages/
+DevPackages/
+build/
+*.rbxlx
+*.rbxmx
+.DS_Store
+node_modules/
+.oofui/private/
+.oofui/studio/
+*.tgz

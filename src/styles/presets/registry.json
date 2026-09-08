@@ -1,0 +1,135 @@
+{
+  "defaultTheme": "default",
+  "themes": [
+    {
+      "id": "default",
+      "label": "Default",
+      "icon": "moon",
+      "tier": "free",
+      "heroScene": "outpost",
+      "description": "Quiet contrast. A foundation for any world.",
+      "features": [
+        "Neutral surfaces",
+        "Clean sans serif",
+        "Minimal chrome"
+      ]
+    },
+    {
+      "id": "light",
+      "label": "Light",
+      "icon": "sun",
+      "tier": "free",
+      "heroScene": "island",
+      "description": "Crisp surfaces and plenty of breathing room.",
+      "features": [
+        "Bright neutrals",
+        "Soft borders",
+        "Clean sans serif"
+      ]
+    },
+    {
+      "id": "adventure",
+      "label": "Adventure",
+      "icon": "compass",
+      "tier": "pro",
+      "heroScene": "island",
+      "description": "Parchment, sculpted gold frames, and a sense of discovery.",
+      "features": [
+        "Nine-slice materials",
+        "Sculpted controls",
+        "Fantasy ornament"
+      ]
+    },
+    {
+      "id": "bloom",
+      "label": "Bloom",
+      "icon": "flower",
+      "tier": "pro",
+      "heroScene": "homestead",
+      "description": "Candy-glazed controls, petal borders, and handwritten charm.",
+      "features": [
+        "Glossy rose controls",
+        "Double petal frames",
+        "Handwritten headings"
+      ]
+    },
+    {
+      "id": "circuit",
+      "label": "Circuit",
+      "icon": "cpu",
+      "tier": "pro",
+      "heroScene": "outpost",
+      "description": "Precision cyan frames and cool telemetry for your next mission.",
+      "features": [
+        "Technical insets",
+        "Monospaced detail",
+        "Instrument dials"
+      ]
+    },
+    {
+      "id": "grove",
+      "label": "Grove",
+      "icon": "leaf",
+      "tier": "pro",
+      "heroScene": "woodland",
+      "description": "Botanical ink, ivory paper, and a quieter kind of adventure.",
+      "features": [
+        "Botanical frames",
+        "Bookish typography",
+        "Leaf-green enamel"
+      ]
+    },
+    {
+      "id": "arcade",
+      "label": "Arcade",
+      "icon": "gamepad",
+      "tier": "pro",
+      "heroScene": "arcade",
+      "description": "Pixel titles, violet cabinets, and big press-start energy.",
+      "features": [
+        "Pixel headings",
+        "Square geometry",
+        "Tactile controls"
+      ]
+    },
+    {
+      "id": "obsidian",
+      "label": "Obsidian",
+      "icon": "gem",
+      "tier": "pro",
+      "heroScene": "vault",
+      "description": "Champagne metal and cinematic type for rare finds and grand stories.",
+      "features": [
+        "Fine metal frames",
+        "Cinematic serif",
+        "Slim gauges"
+      ]
+    },
+    {
+      "id": "tide",
+      "label": "Tide",
+      "icon": "waves",
+      "tier": "pro",
+      "heroScene": "harbor",
+      "description": "Pearl surfaces and sea-glass curves for days by the water.",
+      "features": [
+        "Sea-glass outlines",
+        "Soft pill controls",
+        "Rounded typography"
+      ]
+    },
+    {
+      "id": "ember",
+      "label": "Ember",
+      "icon": "flame",
+      "tier": "pro",
+      "heroScene": "forge",
+      "description": "Warm enamel and stamped workshop details, built for making things.",
+      "features": [
+        "Utility typography",
+        "Solid enamel controls",
+        "Warm squared frames"
+      ]
+    }
+  ]
+}

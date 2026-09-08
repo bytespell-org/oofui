@@ -1,0 +1,84 @@
+{
+  "rigType": "R15",
+  "colors": {
+    "HeadColor": [
+      0.8980392217636108,
+      0.8941176533699036,
+      0.8745098114013672
+    ],
+    "TorsoColor": [
+      0.9607843160629272,
+      0.8039215803146362,
+      0.1882352977991104
+    ],
+    "LeftArmColor": [
+      0.8980392217636108,
+      0.8941176533699036,
+      0.8745098114013672
+    ],
+    "RightLegColor": [
+      0.4313725531101227,
+      0.6000000238418579,
+      0.7921568751335144
+    ],
+    "RightArmColor": [
+      0.8980392217636108,
+      0.8941176533699036,
+      0.8745098114013672
+    ],
+    "LeftLegColor": [
+      0.4313725531101227,
+      0.6000000238418579,
+      0.7921568751335144
+    ]
+  },
+  "accessories": [
+    {
+      "Rotation": [
+        0,
+        0,
+        0
+      ],
+      "AssetId": 62724852,
+      "Position": [
+        0,
+        0,
+        0
+      ],
+      "Scale": [
+        1,
+        1,
+        1
+      ],
+      "IsLayered": false,
+      "AccessoryType": "Hair"
+    }
+  ],
+  "properties": {
+    "SwimAnimation": 0,
+    "Face": 0,
+    "ProportionScale": 0,
+    "BodyTypeScale": 0,
+    "ClimbAnimation": 0,
+    "Shirt": 144076436,
+    "Pants": 144076512,
+    "WalkAnimation": 0,
+    "RightArm": 86499698,
+    "RunAnimation": 0,
+    "Head": 10638267973,
+    "JumpAnimation": 0,
+    "IdleAnimation": 0,
+    "Torso": 86499666,
+    "WidthScale": 1,
+    "FallAnimation": 0,
+    "RightLeg": 86499793,
+    "DepthScale": 1,
+    "LeftArm": 86499716,
+    "HeadScale": 1,
+    "HeightScale": 1,
+    "GraphicTShirt": 0,
+    "LeftLeg": 86499753
+  },
+  "schemaVersion": 1,
+  "userId": 10740162393
+}

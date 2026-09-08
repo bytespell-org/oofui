@@ -1,0 +1,1 @@
+{"name":"oofui-source","private":true,"scripts":{"pretest":"node scripts/build-registry.mjs","build:registry":"node scripts/build-registry.mjs","test":"node --test cli/test/*.test.mjs","build":"rojo build default.project.json -o build/oofui.rbxmx"},"engines":{"node":">=22.12.0"}}

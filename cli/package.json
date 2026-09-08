@@ -1,0 +1,11 @@
+{
+  "name": "oofui",
+  "version": "0.1.0",
+  "description": "Add editable native Roblox UI components, themes, and agent skills to your project.",
+  "type": "module",
+  "license": "MIT",
+  "bin": { "oofui": "bin/oofui.mjs" },
+  "engines": { "node": ">=22.12.0" },
+  "files": ["bin", "lib", "registry", "skill", "templates", "LICENSE", "README.md"],
+  "scripts": { "test": "node --test test/*.test.mjs" }
+}

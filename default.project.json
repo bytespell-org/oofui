@@ -1,0 +1,18 @@
+{
+  "globIgnorePaths": [
+    "src/styles/presets/adventure.luau",
+    "src/styles/presets/bloom.luau",
+    "src/styles/presets/circuit.luau",
+    "src/styles/presets/grove.luau",
+    "src/styles/presets/arcade.luau",
+    "src/styles/presets/obsidian.luau",
+    "src/styles/presets/tide.luau",
+    "src/styles/presets/ember.luau",
+    "src/kits",
+    "src/kits/**"
+  ],
+  "name": "oof-ui-primitives",
+  "tree": {
+    "$path": "src"
+  }
+}

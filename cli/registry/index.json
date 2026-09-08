@@ -1,0 +1,561 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0",
+  "items": [
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "_base",
+      "kind": "internal",
+      "tier": "free",
+      "module": null,
+      "dependencies": [],
+      "description": ""
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "field",
+      "kind": "component",
+      "tier": "free",
+      "module": "Field",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox Field primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "progress-bar",
+      "kind": "component",
+      "tier": "free",
+      "module": "ProgressBar",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox ProgressBar primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "switch",
+      "kind": "component",
+      "tier": "free",
+      "module": "Switch",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox Switch primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "hold-button",
+      "kind": "component",
+      "tier": "free",
+      "module": "HoldButton",
+      "dependencies": [
+        "_base",
+        "progress-bar",
+        "radial-progress",
+        "text"
+      ],
+      "description": "Native Roblox HoldButton primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "radial-progress",
+      "kind": "component",
+      "tier": "free",
+      "module": "RadialProgress",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox RadialProgress primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "field-label",
+      "kind": "component",
+      "tier": "free",
+      "module": "FieldLabel",
+      "dependencies": [
+        "_base",
+        "text"
+      ],
+      "description": "Native Roblox FieldLabel primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "field-group",
+      "kind": "component",
+      "tier": "free",
+      "module": "FieldGroup",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox FieldGroup primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "field-description",
+      "kind": "component",
+      "tier": "free",
+      "module": "FieldDescription",
+      "dependencies": [
+        "_base",
+        "text"
+      ],
+      "description": "Native Roblox FieldDescription primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "text-field",
+      "kind": "component",
+      "tier": "free",
+      "module": "TextField",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox TextField primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "container",
+      "kind": "component",
+      "tier": "free",
+      "module": "Container",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox Container primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "dialog",
+      "kind": "component",
+      "tier": "free",
+      "module": "Dialog",
+      "dependencies": [
+        "_base",
+        "container",
+        "text",
+        "icon-button"
+      ],
+      "description": "Native Roblox Dialog primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "checkbox",
+      "kind": "component",
+      "tier": "free",
+      "module": "Checkbox",
+      "dependencies": [
+        "_base",
+        "text"
+      ],
+      "description": "Native Roblox Checkbox primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "radio-group",
+      "kind": "component",
+      "tier": "free",
+      "module": "RadioGroup",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox RadioGroup primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "field-error",
+      "kind": "component",
+      "tier": "free",
+      "module": "FieldError",
+      "dependencies": [
+        "_base",
+        "text"
+      ],
+      "description": "Native Roblox FieldError primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "button",
+      "kind": "component",
+      "tier": "free",
+      "module": "Button",
+      "dependencies": [
+        "_base",
+        "text"
+      ],
+      "description": "Native Roblox Button primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "text",
+      "kind": "component",
+      "tier": "free",
+      "module": "Text",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox Text primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "radio-group-item",
+      "kind": "component",
+      "tier": "free",
+      "module": "RadioGroupItem",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox RadioGroupItem primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "separator",
+      "kind": "component",
+      "tier": "free",
+      "module": "Separator",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox Separator primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "field-content",
+      "kind": "component",
+      "tier": "free",
+      "module": "FieldContent",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox FieldContent primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "icon-button",
+      "kind": "component",
+      "tier": "free",
+      "module": "IconButton",
+      "dependencies": [
+        "_base",
+        "text"
+      ],
+      "description": "Native Roblox IconButton primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "default",
+      "kind": "theme",
+      "tier": "free",
+      "module": null,
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Quiet contrast. A foundation for any world."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "light",
+      "kind": "theme",
+      "tier": "free",
+      "module": null,
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Crisp surfaces and plenty of breathing room."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "adventure",
+      "kind": "theme",
+      "tier": "pro",
+      "module": null,
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Parchment, sculpted gold frames, and a sense of discovery."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "bloom",
+      "kind": "theme",
+      "tier": "pro",
+      "module": null,
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Candy-glazed controls, petal borders, and handwritten charm."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "circuit",
+      "kind": "theme",
+      "tier": "pro",
+      "module": null,
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Precision cyan frames and cool telemetry for your next mission."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "grove",
+      "kind": "theme",
+      "tier": "pro",
+      "module": null,
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Botanical ink, ivory paper, and a quieter kind of adventure."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "arcade",
+      "kind": "theme",
+      "tier": "pro",
+      "module": null,
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Pixel titles, violet cabinets, and big press-start energy."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "obsidian",
+      "kind": "theme",
+      "tier": "pro",
+      "module": null,
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Champagne metal and cinematic type for rare finds and grand stories."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "tide",
+      "kind": "theme",
+      "tier": "pro",
+      "module": null,
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Pearl surfaces and sea-glass curves for days by the water."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "ember",
+      "kind": "theme",
+      "tier": "pro",
+      "module": null,
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Warm enamel and stamped workshop details, built for making things."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "_kit-base",
+      "kind": "internal",
+      "tier": "pro-plus",
+      "module": null,
+      "dependencies": [
+        "_base",
+        "container",
+        "button",
+        "text",
+        "icon-button"
+      ],
+      "description": ""
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "inventory",
+      "kind": "kit",
+      "tier": "pro-plus",
+      "module": "Inventory",
+      "dependencies": [
+        "_kit-base",
+        "text-field",
+        "text"
+      ],
+      "description": "A complete home for equipment, consumables, and materials."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "quest-log",
+      "kind": "kit",
+      "tier": "pro-plus",
+      "module": "QuestLog",
+      "dependencies": [
+        "_kit-base",
+        "progress-bar",
+        "button"
+      ],
+      "description": "Story, daily, and exploration quests with a clear next step."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "season-pass",
+      "kind": "kit",
+      "tier": "pro-plus",
+      "module": "SeasonPass",
+      "dependencies": [
+        "_kit-base",
+        "progress-bar"
+      ],
+      "description": "A season worth exploring, with browsable free and premium rewards."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "daily-rewards",
+      "kind": "kit",
+      "tier": "pro-plus",
+      "module": "DailyRewards",
+      "dependencies": [
+        "_kit-base",
+        "progress-bar",
+        "container"
+      ],
+      "description": "A welcoming return screen with a readable reward calendar."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "item-shop",
+      "kind": "kit",
+      "tier": "pro-plus",
+      "module": "ItemShop",
+      "dependencies": [
+        "_kit-base",
+        "text-field",
+        "container",
+        "dialog",
+        "button",
+        "text"
+      ],
+      "description": "A real storefront for featured finds, equipment, and consumables."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "crafting",
+      "kind": "kit",
+      "tier": "pro-plus",
+      "module": "Crafting",
+      "dependencies": [
+        "_kit-base",
+        "text-field",
+        "text"
+      ],
+      "description": "Recipe discovery and batch crafting with useful material feedback."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "collection",
+      "kind": "kit",
+      "tier": "pro-plus",
+      "module": "Collection",
+      "dependencies": [
+        "_kit-base",
+        "progress-bar",
+        "text-field",
+        "text"
+      ],
+      "description": "An illustrated discovery journal for creatures, equipment, and world collectibles."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "inventory-bar",
+      "kind": "kit",
+      "tier": "pro-plus",
+      "module": "InventoryBar",
+      "dependencies": [
+        "_kit-base",
+        "button",
+        "icon-button"
+      ],
+      "description": "A compact quick-access bar for the things players reach for during play."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "player-card",
+      "kind": "kit",
+      "tier": "pro-plus",
+      "module": "PlayerCard",
+      "dependencies": [
+        "_kit-base",
+        "progress-bar",
+        "container",
+        "button"
+      ],
+      "description": "Player identity and vital stats, designed to live comfortably in a HUD corner."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "currency-view",
+      "kind": "kit",
+      "tier": "pro-plus",
+      "module": "CurrencyView",
+      "dependencies": [
+        "_kit-base",
+        "container",
+        "button"
+      ],
+      "description": "A tidy wallet for coins, gems, or your game\u2019s own currencies."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "upgrades",
+      "kind": "kit",
+      "tier": "pro-plus",
+      "module": "Upgrades",
+      "dependencies": [
+        "_kit-base",
+        "progress-bar"
+      ],
+      "description": "Clear rank progression, meaningful benefits, and a visible path to the next upgrade."
+    }
+  ]
+}

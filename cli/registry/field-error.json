@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0",
+  "id": "field-error",
+  "kind": "component",
+  "tier": "free",
+  "module": "FieldError",
+  "dependencies": [
+    "_base",
+    "text"
+  ],
+  "description": "Native Roblox FieldError primitive.",
+  "files": [
+    {
+      "path": "components/FieldError.luau",
+      "sha256": "9d4b057d13393d25f1b3a51d1a6d5600cee1f57b215701c20b93dfa473cfad2d",
+      "encoding": "base64",
+      "content": "LS0hc3RyaWN0Cgpsb2NhbCBEZXBlbmRlbmNpZXMgPSByZXF1aXJlKHNjcmlwdC5QYXJlbnQuUGFyZW50LkRlcGVuZGVuY2llcykKbG9jYWwgVGV4dCA9IHJlcXVpcmUoc2NyaXB0LlBhcmVudC5UZXh0KQoKbG9jYWwgUmVhY3QgPSBEZXBlbmRlbmNpZXMuUmVhY3QKbG9jYWwgZSA9IFJlYWN0LmNyZWF0ZUVsZW1lbnQKCmV4cG9ydCB0eXBlIFByb3BzID0gewoJdGV4dDogc3RyaW5nLAoJbGF5b3V0T3JkZXI6IG51bWJlcj8sCgl0YWc6IHN0cmluZz8sCglyb290UmVmOiBhbnk/LAp9Cgpsb2NhbCBmdW5jdGlvbiBGaWVsZEVycm9yKHByb3BzOiBQcm9wcyk6IGFueQoJcmV0dXJuIGUoVGV4dCwgewoJCXRleHQgPSBwcm9wcy50ZXh0LAoJCXZhcmlhbnQgPSAic3VidGV4dCIsCgkJdG9uZSA9ICJkYW5nZXIiLAoJCWxheW91dE9yZGVyID0gcHJvcHMubGF5b3V0T3JkZXIsCgkJdGFnID0gaWYgcHJvcHMudGFnID09IG5pbCB0aGVuICJvb2YtdWktZmllbGQtZXJyb3IiIGVsc2UgIm9vZi11aS1maWVsZC1lcnJvciAiIC4uIHByb3BzLnRhZywKCQlyb290UmVmID0gcHJvcHMucm9vdFJlZiwKCX0pCmVuZAoKcmV0dXJuIEZpZWxkRXJyb3IK"
+    }
+  ]
+}

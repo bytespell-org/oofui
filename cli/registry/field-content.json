@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0",
+  "id": "field-content",
+  "kind": "component",
+  "tier": "free",
+  "module": "FieldContent",
+  "dependencies": [
+    "_base"
+  ],
+  "description": "Native Roblox FieldContent primitive.",
+  "files": [
+    {
+      "path": "components/FieldContent.luau",
+      "sha256": "41cf432e6578e341ccf82daa31b068dc77f06021882d60af90d70deb34e64805",
+      "encoding": "base64",
+      "content": "LS0hc3RyaWN0Cgpsb2NhbCBEZXBlbmRlbmNpZXMgPSByZXF1aXJlKHNjcmlwdC5QYXJlbnQuUGFyZW50LkRlcGVuZGVuY2llcykKbG9jYWwgVGFncyA9IHJlcXVpcmUoc2NyaXB0LlBhcmVudC5QYXJlbnQuaW50ZXJuYWwuVGFncykKCmxvY2FsIFJlYWN0ID0gRGVwZW5kZW5jaWVzLlJlYWN0CmxvY2FsIGUgPSBSZWFjdC5jcmVhdGVFbGVtZW50CgpleHBvcnQgdHlwZSBQcm9wcyA9IHsKCWxheW91dE9yZGVyOiBudW1iZXI/LAoJdGFnOiBzdHJpbmc/LAoJcm9vdFJlZjogYW55PywKCWNoaWxkcmVuOiBhbnk/LAp9Cgpsb2NhbCBmdW5jdGlvbiBGaWVsZENvbnRlbnQocHJvcHM6IFByb3BzKTogYW55CglyZXR1cm4gZSgiRnJhbWUiLCB7CgkJW1JlYWN0LlRhZ10gPSBUYWdzLmpvaW4oIm9vZi11aS1maWVsZC1jb250ZW50IiwgcHJvcHMudGFnKSwKCQlyZWYgPSBwcm9wcy5yb290UmVmLAoJCUxheW91dE9yZGVyID0gcHJvcHMubGF5b3V0T3JkZXIsCgl9LCB7CgkJRmxleCA9IGUoIlVJRmxleEl0ZW0iLCB7IFtSZWFjdC5UYWddID0gIm9vZi11aS1maWVsZC1jb250ZW50LWZsZXgiIH0pLAoJCUxheW91dCA9IGUoIlVJTGlzdExheW91dCIsIHsgW1JlYWN0LlRhZ10gPSAib29mLXVpLWZpZWxkLWNvbnRlbnQtbGF5b3V0IiB9KSwKCQlDb250ZW50ID0gZShSZWFjdC5GcmFnbWVudCwgbmlsLCBwcm9wcy5jaGlsZHJlbiksCgl9KQplbmQKCnJldHVybiBGaWVsZENvbnRlbnQK"
+    }
+  ]
+}

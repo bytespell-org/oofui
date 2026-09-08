@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0",
+  "id": "field-group",
+  "kind": "component",
+  "tier": "free",
+  "module": "FieldGroup",
+  "dependencies": [
+    "_base"
+  ],
+  "description": "Native Roblox FieldGroup primitive.",
+  "files": [
+    {
+      "path": "components/FieldGroup.luau",
+      "sha256": "a0ad3170af0f20fb4c99601509aebba39049c7b5ea33a21d430211b10b7269ab",
+      "encoding": "base64",
+      "content": "LS0hc3RyaWN0Cgpsb2NhbCBEZXBlbmRlbmNpZXMgPSByZXF1aXJlKHNjcmlwdC5QYXJlbnQuUGFyZW50LkRlcGVuZGVuY2llcykKbG9jYWwgVGFncyA9IHJlcXVpcmUoc2NyaXB0LlBhcmVudC5QYXJlbnQuaW50ZXJuYWwuVGFncykKCmxvY2FsIFJlYWN0ID0gRGVwZW5kZW5jaWVzLlJlYWN0CmxvY2FsIGUgPSBSZWFjdC5jcmVhdGVFbGVtZW50CgpleHBvcnQgdHlwZSBQcm9wcyA9IHsKCWxheW91dE9yZGVyOiBudW1iZXI/LAoJdGFnOiBzdHJpbmc/LAoJcm9vdFJlZjogYW55PywKCWNoaWxkcmVuOiBhbnk/LAp9Cgpsb2NhbCBmdW5jdGlvbiBGaWVsZEdyb3VwKHByb3BzOiBQcm9wcyk6IGFueQoJcmV0dXJuIGUoIkZyYW1lIiwgewoJCVtSZWFjdC5UYWddID0gVGFncy5qb2luKCJvb2YtdWktZmllbGQtZ3JvdXAiLCBwcm9wcy50YWcpLAoJCXJlZiA9IHByb3BzLnJvb3RSZWYsCgkJTGF5b3V0T3JkZXIgPSBwcm9wcy5sYXlvdXRPcmRlciwKCX0sIHsKCQlMYXlvdXQgPSBlKCJVSUxpc3RMYXlvdXQiLCB7IFtSZWFjdC5UYWddID0gIm9vZi11aS1maWVsZC1ncm91cC1sYXlvdXQiIH0pLAoJCUNvbnRlbnQgPSBlKFJlYWN0LkZyYWdtZW50LCBuaWwsIHByb3BzLmNoaWxkcmVuKSwKCX0pCmVuZAoKcmV0dXJuIEZpZWxkR3JvdXAK"
+    }
+  ]
+}
