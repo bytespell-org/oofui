@@ -194,7 +194,7 @@ local function GameShowcase(props: {
 				{ position = UDim2.fromOffset(24, 24), size = UDim2.fromOffset(304, 0), zIndex = 3 },
 				{
 					Name = label(f.name, 1, "heading"),
-					Region = label(f.location .. "  /  " .. f.time, 2, "caption"),
+					Region = label(f.location, 2, "body"),
 				}
 			),
 			Quest = if journalOpen
@@ -220,7 +220,7 @@ local function GameShowcase(props: {
 				)
 				else nil,
 			Rail = e(ActionRail, {
-				position = UDim2.fromOffset(24, 174),
+				position = UDim2.fromOffset(24, 158),
 				activeId = if settingsOpen
 					then "settings"
 					elseif panel ~= "" then panel

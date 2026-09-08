@@ -540,7 +540,8 @@
       "dependencies": [
         "_kit-base",
         "container",
-        "button"
+        "button",
+        "text"
       ],
       "description": "A tidy wallet for coins, gems, or your game\u2019s own currencies."
     },
