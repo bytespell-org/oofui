@@ -16,9 +16,11 @@ and materials without replacing your game’s controls.
 
 [![Watch the oofui agent workflow](docs/media/install-demo-poster.jpg)](docs/media/install-demo.mp4)
 
-A 34-second prerelease walkthrough: install the skill, ask for an inventory,
-then use the agent-built UI in Roblox Studio. The demo uses the Pro Plus
-Inventory kit and Circuit theme. Core's skill and primitives remain free.
+A 40-second walkthrough: add the skill, ask for an inventory, then search,
+equip, and walk through the agent-built game in Roblox Studio. A follow-up
+changes Adventure to Grove while preserving inventory state. The demo uses
+Pro Plus kits, with actual session excerpts replayed for pacing. Core's skill
+and primitives remain free.
 
 ## Add it to your game
 
