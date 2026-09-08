@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceFingerprint": "bfa3b9209f96743a9ddf39b0f74cf80cb61d230aba4fc6a92aedc0b7d25e7161",
+  "sourceFingerprint": "e56a077d40d4b24411fd260b40cba8609305271e8b1e63305bab2464d6d6f905",
   "method": "Actual Codex CLI transcript, edited cards, and Roblox Studio Play captured with ScreenCaptureKit",
   "prerelease": true,
   "licenseFixture": "local owner-license; no live checkout",
@@ -10,7 +10,7 @@
   "duration": 34,
   "packageSha256": "4a22fd526bb49db93bbf6c7f5a9c6d9da9fadce289767be272963bb6898c810a",
   "placeSha256": "c164e14ff6a82762e7bd44875afb316ad2375a25d19b152ac6307f0c07e310d9",
-  "reviewPlaceSha256": "26e7842a9de7742840ad3f43dcd708543f2174dd89a0e951d05132efa2776aad",
+  "reviewPlaceSha256": "98f7a70fa43b0a5eaab70c02b9663dff2132ab4f1fd4fcd533dc2a85ba0a80be",
   "runtime": {
     "items": 12,
     "previewCount": 13,
@@ -34,13 +34,13 @@
   "assets": [
     {
       "file": "install-demo.mp4",
-      "sha256": "ff06b293d34612c5ed76df66f82a1e35783ffea1c8d1b5540d03cbc75efc7f83",
-      "bytes": 618511
+      "sha256": "6f37c2f833ee8fb501ed8d85343e60f9f8fb8170af15f705ce7da40a160ba754",
+      "bytes": 616104
     },
     {
       "file": "install-demo-poster.jpg",
-      "sha256": "cdd1c4dcaefeb3457b3f50c7468bccccd492e6a6640841b42d03139968464b6e",
-      "bytes": 93015
+      "sha256": "8591f07e7dbbd2d085910c808ef8f9e8f1008eb2ddcce06ae428d7cee8a4397b",
+      "bytes": 93272
     },
     {
       "file": "install-demo.vtt",

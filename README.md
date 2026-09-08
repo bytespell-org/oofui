@@ -23,10 +23,10 @@ Inventory kit and Circuit theme. Core's skill and primitives remain free.
 ## Add it to your game
 
 The CLI adds editable source, resolves dependencies, connects Rojo, and installs
-an agent skill. Node 22.12+, Wally and Rojo are required. From this checkout:
+an agent skill. Node 22.12+, Wally and Rojo are required:
 
 ```sh
-npm install -g ./cli
+npm install -g https://oofui.bytespell.com/downloads/oofui-0.1.0.tgz
 mkdir my-game
 cd my-game
 oofui init
@@ -36,8 +36,9 @@ oofui build
 oofui studio open
 ```
 
-The docs site provides the same CLI as an installable `.tgz`. After npm
-publication, `npx oofui@latest init` runs it without a global install.
+The [docs site](https://oofui.bytespell.com/#/docs/installation) hosts the audited CLI
+and free source ZIPs. To build the CLI from this checkout, use `npm install -g ./cli`.
+Npm registry publication is optional and remains pending; use the site URL above.
 `oofui init` preserves an existing Rojo game's mappings and installs the project
 skill at `.agents/skills/oofui`. Ask your agent: "Use $oofui to add a player UI."
 Read the [skill](skills/oofui/SKILL.md) for the complete workflow.

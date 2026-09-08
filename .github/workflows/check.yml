@@ -13,6 +13,6 @@ jobs:
       - uses: CompeyDev/setup-rokit@v0.2.1
       - run: npm test
       - run: wally install
-      - run: mkdir -p build && npm run build
+      - run: npm run build
       - run: npm pack --dry-run
         working-directory: cli
