@@ -12,15 +12,11 @@ and materials without replacing your game’s controls.
 | --- | --- |
 | ![Default outpost](docs/media/default-outpost.png) | ![Light island](docs/media/light-island.png) |
 
-## From a prompt to a player inventory
+## Build with your agent
 
-[![Watch the oofui agent workflow](docs/media/install-demo-poster.jpg)](docs/media/install-demo.mp4)
-
-A 40-second walkthrough: add the skill, ask for an inventory, then search,
-equip, and walk through the agent-built game in Roblox Studio. A follow-up
-changes Adventure to Grove while preserving inventory state. The demo uses
-Pro Plus kits, with actual session excerpts replayed for pacing. Core's skill
-and primitives remain free.
+The free oofui project skill helps your agent find components, read their APIs,
+and compose native Roblox UI. `oofui init` installs it automatically.
+[Read the agent skill guide](https://oofui.bytespell.com/#/docs/agents).
 
 ## Add it to your game
 
