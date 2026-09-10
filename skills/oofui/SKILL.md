@@ -29,7 +29,10 @@ Import the installed library through `ReplicatedStorage.OofUi` and React from
 `ReplicatedStorage.Packages`. Component props are lowercase and are documented in
 the module's `Props` type; native instance props retain Roblox casing.
 
-Mount `StyleProvider` inside the `ScreenGui`. Keep gameplay UI inside
+Mount `StyleProvider` inside the `ScreenGui` and set
+`ZIndexBehavior = Enum.ZIndexBehavior.Sibling` on that ScreenGui. The library's
+nested surfaces rely on sibling layering; Global can cover text and item art.
+Keep gameplay UI inside
 `CoreUISafeInsets`, disable automatic safe-area extension, and use the default
 player and Humanoid camera for game previews. Theme changes belong in
 `createTheme({ theme = Ui.styles.themes.<id>, overrides = ... })`.

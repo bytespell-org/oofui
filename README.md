@@ -65,6 +65,9 @@ local theme = Ui.styles.createTheme({
 local sheet = Ui.styles.createStyleSheet(theme)
 local screen = Instance.new("ScreenGui")
 screen.ResetOnSpawn = false
+screen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+screen.ScreenInsets = Enum.ScreenInsets.CoreUISafeInsets
+screen.SafeAreaCompatibility = Enum.SafeAreaCompatibility.None
 screen.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
 local root = ReactRoblox.createRoot(screen)
 root:render(React.createElement(Ui.styles.StyleProvider, {

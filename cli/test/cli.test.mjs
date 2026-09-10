@@ -38,6 +38,39 @@ test('fresh init, component alias, dependency closure and repeated installs work
   assert.ok(config.installed.includes('text'));
   assert.ok(!Object.keys(before).some(n => n.includes('/kits/') || n.endsWith('/circuit.luau')));
 });
+test('discovery accepts the same spelling aliases as installation', async t => {
+  const root = await temporary(t);
+  for (const query of ['progress bar', 'progress_bar', 'progress-bar', 'progressbar']) {
+    const results = JSON.parse((await run(root, ['list', query])).stdout);
+    assert.ok(results.some(item => item.id === 'progress-bar'));
+  }
+});
+test('paid install guidance names the requested kit and leaves the game unchanged', async t => {
+  const root = await temporary(t), auth = await temporary(t);
+  await run(root, ['init']);
+  const before = await contents(root);
+  await assert.rejects(run(root, ['kit', 'add', 'inventory'], { OOFUI_CONFIG_DIR: auth }), error => {
+    assert.match(error.stderr, /Inventory requires Pro Plus/);
+    assert.match(error.stderr, /https:\/\/oofui\.bytespell\.com/);
+    assert.match(error.stderr, /--token-stdin/);
+    assert.doesNotMatch(error.stderr, /_kit-base|<store URL>/);
+    return true;
+  });
+  assert.deepEqual(await contents(root), before);
+});
+test('human docs and repeat initialization stay concise while JSON remains structured', async t => {
+  const root = await temporary(t);
+  await run(root, ['init']);
+  const repeat = await exec(process.execPath, [cli, 'init', '--cwd', root]);
+  assert.match(repeat.stdout, /Already initialized/);
+  assert.doesNotMatch(repeat.stdout, /managed|schemaVersion/);
+  const docs = await exec(process.execPath, [cli, 'docs', 'button', '--cwd', root]);
+  assert.match(docs.stdout, /Button · Core \(free\)/);
+  assert.match(docs.stdout, /#\/components\/button/);
+  const structured = JSON.parse((await run(root, ['docs', 'button'])).stdout);
+  assert.equal(structured.id, 'button');
+  assert.equal(structured.reference, 'https://oofui.bytespell.com/#/components/button');
+});
 test('dry run and a local-edit conflict leave the entire project intact', async t => {
   const root = await temporary(t); await run(root, ['init']); await run(root, ['add', 'button']);
   const file = path.join(root, 'vendor/oofui/components/Button.luau');

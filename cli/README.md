@@ -35,3 +35,12 @@ mounts it alongside free source without copying it into a public directory.
 `oofui studio open` uses Roblox's Studio CLI and tracks one disposable process.
 Save wanted Studio edits before `oofui studio close`. Build success is not a
 runtime test: press Play and inspect the UI and client Output.
+
+## Updating installed source
+
+Install the current CLI from the docs site; this leaves your game files alone.
+Save your work, then run `oofui add <items...> --dry-run` to preview an update.
+Repeat without `--dry-run` to apply it. Unchanged files stay unchanged; a conflict
+stops the whole install before writing. Use `oofui view <item>` to inspect incoming
+source and merge local changes. `--overwrite` replaces conflicting files and
+dependencies, so preserve wanted edits first. Rebuild and test in Studio afterward.

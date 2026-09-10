@@ -4,7 +4,7 @@ import path from 'node:path';
 import { parseArgs } from 'node:util';
 import { spawnSync } from 'node:child_process';
 import { init, install, skill, info, build } from '../lib/project.mjs';
-import { index, findItem, loadItem, login, logout } from '../lib/registry.mjs';
+import { index, findItem, loadItem, login, logout, normalize } from '../lib/registry.mjs';
 import { studio } from '../lib/studio.mjs';
 
 const help = `oofui ${index.version} — editable native Roblox UI
@@ -31,6 +31,9 @@ Options: --cwd <dir> --project <rojo.json> --path <source-dir>
 No global installation needed: npx oofui@latest <command> (after npm publication).
 The site also provides a directly installable prerelease .tgz.
 Paid code belongs in .oofui/private, which the CLI excludes from Git.
+To refresh source after updating the CLI, preview oofui add <items...> --dry-run,
+then repeat without --dry-run. Review and merge local edits before --overwrite.
+Update guide: https://oofui.bytespell.com/#/docs/cli?section=updating
 `;
 let structured = false;
 try {
@@ -54,8 +57,8 @@ try {
     result = await install(root, args, options);
   } else if (command === 'skill' && args[0] === 'add') result = await skill(root, options);
   else if (command === 'list') {
-    const query = args.join(' ').toLowerCase();
-    result = index.items.filter(i => i.kind !== 'internal' && (i.id + ' ' + i.description).toLowerCase().includes(query));
+    const query = normalize(args.join(' '));
+    result = index.items.filter(i => i.kind !== 'internal' && normalize(i.id + ' ' + i.description).includes(query));
   } else if (command === 'info') result = await info(root);
   else if (command === 'view' || command === 'docs') {
     if (args.length !== 1) throw Error('Choose one item.');
@@ -63,7 +66,8 @@ try {
     if (command === 'docs') {
       result = { ...item, files: undefined, add: 'oofui add ' + item.id, api: 'oofui view ' + item.id,
         usage: item.kind === 'kit' ? `React.createElement(Ui.kits.${item.module}, props)` : item.kind === 'theme' ? `Ui.styles.createTheme({ theme = Ui.styles.themes.${item.id} })` : `React.createElement(Ui.${item.module}, props)`,
-        guidance: 'Use lowercase component props. StyleProvider must be inside its ScreenGui. Read the source Props type with view before composing. Paid kits expose intent callbacks; game servers validate ownership, currency, rewards, and requests.' };
+        reference: `https://oofui.bytespell.com/#/${item.kind === 'kit' ? 'kits/' + item.id : item.kind === 'theme' ? 'themes?section=' + item.id : 'components/' + item.id}`,
+        guidance: 'Use lowercase component props. Mount StyleProvider inside a ScreenGui with ZIndexBehavior = Enum.ZIndexBehavior.Sibling. Read the source Props type with view before composing. Paid kits expose intent callbacks; game servers validate ownership, currency, rewards, and requests.' };
     } else result = await loadItem(item, values.registry);
   } else if (command === 'build') result = await build(root);
   else if (command === 'studio') result = await studio(root, args[0]);
@@ -80,7 +84,9 @@ try {
     result = await login(values.origin, text.trim());
   } else if (command === 'auth' && args[0] === 'logout') { await logout(); result = { signedOut: true }; }
   else throw Error('Unknown command. Run oofui --help.');
-  if (!structured && command === 'view') {
+  if (!structured && command === 'docs') {
+    console.log(`${result.module || result.id} · ${result.tier === 'free' ? 'Core (free)' : result.tier === 'pro-plus' ? 'Pro Plus' : 'Pro'}\n${result.description}\n\nInstall: ${result.add}\nUse: ${result.usage}\n\nAPI reference: ${result.reference}\nInspect Props and source: ${result.api}\n\n${result.guidance}`);
+  } else if (!structured && command === 'view') {
     for (const file of result.files) {
       if (file.path.endsWith('.luau') || file.path.endsWith('.md')) console.log('\n--- ' + file.path + ' ---\n' + Buffer.from(file.content, 'base64').toString());
       else console.log(file.path + ' (' + file.sha256.slice(0, 12) + ')');
@@ -96,7 +102,8 @@ try {
       if (result.skill) console.log('Skill: ' + result.skill);
       if (result.next) console.log('Next: ' + result.next);
     }
-  } else if (!structured && result.built) console.log(`Built ${result.built}\nNext: ${result.next}\nPress Play to verify runtime and interactions.`);
+  } else if (!structured && result.initialized && result.config) console.log('Already initialized. Use oofui add <items...> to install components, or oofui info --json to inspect this project.');
+  else if (!structured && result.built) console.log(`Built ${result.built}\nNext: ${result.next}\nPress Play to verify runtime and interactions.`);
   else if (!structured && result.productId) console.log(`Connected to ${result.origin}\nAccess: ${result.productId}`);
   else console.log(JSON.stringify(result, null, 2));
 } catch (error) {

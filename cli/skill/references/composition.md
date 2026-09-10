@@ -14,6 +14,7 @@ local e = React.createElement
 local gui = Instance.new("ScreenGui")
 gui.Name = "GameUI"
 gui.ResetOnSpawn = false
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.ScreenInsets = Enum.ScreenInsets.CoreUISafeInsets
 gui.SafeAreaCompatibility = Enum.SafeAreaCompatibility.None
 gui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")

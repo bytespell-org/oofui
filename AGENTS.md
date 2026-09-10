@@ -19,7 +19,9 @@ Inspect existing windows before launching. Record the process you start, reuse
 it for that session, and close that window after saving wanted changes. Never
 kill unrelated Studio processes or leave multiple disposable windows behind.
 
-Mount StyleProvider inside its ScreenGui. Preserve native Roblox controls,
+Mount StyleProvider inside its ScreenGui and set that ScreenGui's
+`ZIndexBehavior` to `Enum.ZIndexBehavior.Sibling` so nested surfaces do not cover
+their text and artwork. Preserve native Roblox controls,
 input, selection, and state on theme changes. Verify each installed theme in
 Studio; a Rojo build alone is not runtime or visual proof.
 

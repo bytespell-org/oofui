@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { apply, read, json, hash, relativeName, destination } from './files.mjs';
-import { closure, loadItem, index, packageRoot, findItem } from './registry.mjs';
+import { closure, loadItem, index, packageRoot, findItem, credentials, purchaseRequired } from './registry.mjs';
 
 export const privateRoot = '.oofui/private';
 const configName = 'oofui.json';
@@ -78,6 +78,8 @@ async function sourceTree(root, folder, writes) {
 }
 export async function install(root, names, options = {}) {
   const c = await config(root), writes = new Map(), managed = { ...c.managed };
+  const paid = names.map(findItem).find(item => item.tier !== 'free');
+  if (paid && !await credentials()) throw Error(purchaseRequired(paid));
   const items = closure(names);
   if (items.some(i => i.tier !== 'free')) {
     const tracked = spawnSync('git', ['ls-files', '--', privateRoot], { cwd: root, encoding: 'utf8' });

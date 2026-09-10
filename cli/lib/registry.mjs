@@ -42,12 +42,16 @@ export async function login(value, token) {
   return { origin: registry, productId: account.productId };
 }
 export async function logout() { await fs.rm(authFile(), { force: true }); }
+export function purchaseRequired(item) {
+  const edition = item.tier === 'pro-plus' ? 'Pro Plus' : 'Pro';
+  return `${item.module || item.id} requires ${edition}. Get access at https://oofui.bytespell.com/#/pro. If you already purchased, run oofui auth login --origin https://oofui.bytespell.com --token-stdin and supply your saved access code on stdin.`;
+}
 export async function loadItem(item, configuredOrigin) {
   let bundle;
   if (item.tier === 'free') bundle = JSON.parse(await fs.readFile(new URL('registry/' + item.id + '.json', packageRoot), 'utf8'));
   else {
     const auth = await credentials();
-    if (!auth) throw Error(item.id + ' requires ' + item.tier + '. Run oofui auth login --origin <store URL> with your purchase access code.');
+    if (!auth) throw Error(purchaseRequired(item));
     const expected = configuredOrigin ? origin(configuredOrigin) : auth.origin;
     if (auth.origin !== expected) throw Error('The project registry differs from the saved account. Authenticate that origin explicitly.');
     bundle = await request(expected + '/api/cli/registry/' + index.version + '/' + item.id, auth.token);
