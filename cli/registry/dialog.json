@@ -7,9 +7,9 @@
   "module": "Dialog",
   "dependencies": [
     "_base",
-    "container",
     "text",
-    "icon-button"
+    "icon-button",
+    "container"
   ],
   "description": "Native Roblox Dialog primitive.",
   "files": [

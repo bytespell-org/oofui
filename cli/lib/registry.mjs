@@ -2,9 +2,10 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import { hash, relativeName, json, read } from './files.mjs';
+import { asset } from './assets.mjs';
 
 export const packageRoot = new URL('../', import.meta.url);
-export const index = JSON.parse(await fs.readFile(new URL('registry/index.json', packageRoot), 'utf8'));
+export const index = JSON.parse(await asset('registry/index.json'));
 export const normalize = name => name.toLowerCase().replace(/[-_ ]/g, '');
 export function findItem(name) {
   const item = index.items.find(i => normalize(i.id) === normalize(name));
@@ -48,7 +49,7 @@ export function purchaseRequired(item) {
 }
 export async function loadItem(item, configuredOrigin) {
   let bundle;
-  if (item.tier === 'free') bundle = JSON.parse(await fs.readFile(new URL('registry/' + item.id + '.json', packageRoot), 'utf8'));
+  if (item.tier === 'free') bundle = JSON.parse(await asset('registry/' + item.id + '.json'));
   else {
     const auth = await credentials();
     if (!auth) throw Error(purchaseRequired(item));

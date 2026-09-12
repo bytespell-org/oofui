@@ -15,107 +15,6 @@
     {
       "schemaVersion": 1,
       "version": "0.1.0",
-      "id": "field",
-      "kind": "component",
-      "tier": "free",
-      "module": "Field",
-      "dependencies": [
-        "_base"
-      ],
-      "description": "Native Roblox Field primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "progress-bar",
-      "kind": "component",
-      "tier": "free",
-      "module": "ProgressBar",
-      "dependencies": [
-        "_base"
-      ],
-      "description": "Native Roblox ProgressBar primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "switch",
-      "kind": "component",
-      "tier": "free",
-      "module": "Switch",
-      "dependencies": [
-        "_base"
-      ],
-      "description": "Native Roblox Switch primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "hold-button",
-      "kind": "component",
-      "tier": "free",
-      "module": "HoldButton",
-      "dependencies": [
-        "_base",
-        "progress-bar",
-        "radial-progress",
-        "text"
-      ],
-      "description": "Native Roblox HoldButton primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "radial-progress",
-      "kind": "component",
-      "tier": "free",
-      "module": "RadialProgress",
-      "dependencies": [
-        "_base"
-      ],
-      "description": "Native Roblox RadialProgress primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "field-label",
-      "kind": "component",
-      "tier": "free",
-      "module": "FieldLabel",
-      "dependencies": [
-        "_base",
-        "text"
-      ],
-      "description": "Native Roblox FieldLabel primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "field-group",
-      "kind": "component",
-      "tier": "free",
-      "module": "FieldGroup",
-      "dependencies": [
-        "_base"
-      ],
-      "description": "Native Roblox FieldGroup primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "field-description",
-      "kind": "component",
-      "tier": "free",
-      "module": "FieldDescription",
-      "dependencies": [
-        "_base",
-        "text"
-      ],
-      "description": "Native Roblox FieldDescription primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
       "id": "text-field",
       "kind": "component",
       "tier": "free",
@@ -128,54 +27,14 @@
     {
       "schemaVersion": 1,
       "version": "0.1.0",
-      "id": "container",
+      "id": "field",
       "kind": "component",
       "tier": "free",
-      "module": "Container",
+      "module": "Field",
       "dependencies": [
         "_base"
       ],
-      "description": "Native Roblox Container primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "dialog",
-      "kind": "component",
-      "tier": "free",
-      "module": "Dialog",
-      "dependencies": [
-        "_base",
-        "container",
-        "text",
-        "icon-button"
-      ],
-      "description": "Native Roblox Dialog primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "checkbox",
-      "kind": "component",
-      "tier": "free",
-      "module": "Checkbox",
-      "dependencies": [
-        "_base",
-        "text"
-      ],
-      "description": "Native Roblox Checkbox primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "radio-group",
-      "kind": "component",
-      "tier": "free",
-      "module": "RadioGroup",
-      "dependencies": [
-        "_base"
-      ],
-      "description": "Native Roblox RadioGroup primitive."
+      "description": "Native Roblox Field primitive."
     },
     {
       "schemaVersion": 1,
@@ -193,6 +52,19 @@
     {
       "schemaVersion": 1,
       "version": "0.1.0",
+      "id": "checkbox",
+      "kind": "component",
+      "tier": "free",
+      "module": "Checkbox",
+      "dependencies": [
+        "_base",
+        "text"
+      ],
+      "description": "Native Roblox Checkbox primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
       "id": "button",
       "kind": "component",
       "tier": "free",
@@ -206,38 +78,14 @@
     {
       "schemaVersion": 1,
       "version": "0.1.0",
-      "id": "text",
+      "id": "field-group",
       "kind": "component",
       "tier": "free",
-      "module": "Text",
+      "module": "FieldGroup",
       "dependencies": [
         "_base"
       ],
-      "description": "Native Roblox Text primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "radio-group-item",
-      "kind": "component",
-      "tier": "free",
-      "module": "RadioGroupItem",
-      "dependencies": [
-        "_base"
-      ],
-      "description": "Native Roblox RadioGroupItem primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "separator",
-      "kind": "component",
-      "tier": "free",
-      "module": "Separator",
-      "dependencies": [
-        "_base"
-      ],
-      "description": "Native Roblox Separator primitive."
+      "description": "Native Roblox FieldGroup primitive."
     },
     {
       "schemaVersion": 1,
@@ -254,6 +102,110 @@
     {
       "schemaVersion": 1,
       "version": "0.1.0",
+      "id": "text",
+      "kind": "component",
+      "tier": "free",
+      "module": "Text",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox Text primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "field-label",
+      "kind": "component",
+      "tier": "free",
+      "module": "FieldLabel",
+      "dependencies": [
+        "_base",
+        "text"
+      ],
+      "description": "Native Roblox FieldLabel primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "field-description",
+      "kind": "component",
+      "tier": "free",
+      "module": "FieldDescription",
+      "dependencies": [
+        "_base",
+        "text"
+      ],
+      "description": "Native Roblox FieldDescription primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "hold-button",
+      "kind": "component",
+      "tier": "free",
+      "module": "HoldButton",
+      "dependencies": [
+        "_base",
+        "text",
+        "radial-progress",
+        "progress-bar"
+      ],
+      "description": "Native Roblox HoldButton primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "separator",
+      "kind": "component",
+      "tier": "free",
+      "module": "Separator",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox Separator primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "dialog",
+      "kind": "component",
+      "tier": "free",
+      "module": "Dialog",
+      "dependencies": [
+        "_base",
+        "text",
+        "icon-button",
+        "container"
+      ],
+      "description": "Native Roblox Dialog primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "switch",
+      "kind": "component",
+      "tier": "free",
+      "module": "Switch",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox Switch primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "radial-progress",
+      "kind": "component",
+      "tier": "free",
+      "module": "RadialProgress",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox RadialProgress primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
       "id": "icon-button",
       "kind": "component",
       "tier": "free",
@@ -263,6 +215,54 @@
         "text"
       ],
       "description": "Native Roblox IconButton primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "progress-bar",
+      "kind": "component",
+      "tier": "free",
+      "module": "ProgressBar",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox ProgressBar primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "radio-group",
+      "kind": "component",
+      "tier": "free",
+      "module": "RadioGroup",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox RadioGroup primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "radio-group-item",
+      "kind": "component",
+      "tier": "free",
+      "module": "RadioGroupItem",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox RadioGroupItem primitive."
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "container",
+      "kind": "component",
+      "tier": "free",
+      "module": "Container",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Native Roblox Container primitive."
     },
     {
       "schemaVersion": 1,
@@ -393,10 +393,10 @@
       "module": null,
       "dependencies": [
         "_base",
-        "container",
         "button",
         "text",
-        "icon-button"
+        "icon-button",
+        "container"
       ],
       "description": ""
     },
@@ -423,8 +423,8 @@
       "module": "QuestLog",
       "dependencies": [
         "_kit-base",
-        "progress-bar",
-        "button"
+        "button",
+        "progress-bar"
       ],
       "description": "Story, daily, and exploration quests with a clear next step."
     },
@@ -465,10 +465,10 @@
       "dependencies": [
         "_kit-base",
         "text-field",
-        "container",
-        "dialog",
         "button",
-        "text"
+        "text",
+        "dialog",
+        "container"
       ],
       "description": "A real storefront for featured finds, equipment, and consumables."
     },
@@ -495,9 +495,9 @@
       "module": "Collection",
       "dependencies": [
         "_kit-base",
-        "progress-bar",
         "text-field",
-        "text"
+        "text",
+        "progress-bar"
       ],
       "description": "An illustrated discovery journal for creatures, equipment, and world collectibles."
     },
@@ -524,9 +524,9 @@
       "module": "PlayerCard",
       "dependencies": [
         "_kit-base",
+        "button",
         "progress-bar",
-        "container",
-        "button"
+        "container"
       ],
       "description": "Player identity and vital stats, designed to live comfortably in a HUD corner."
     },
@@ -539,9 +539,9 @@
       "module": "CurrencyView",
       "dependencies": [
         "_kit-base",
-        "container",
         "button",
-        "text"
+        "text",
+        "container"
       ],
       "description": "A tidy wallet for coins, gems, or your game\u2019s own currencies."
     },

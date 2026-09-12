@@ -2,7 +2,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
-import { spawnSync } from 'node:child_process';
+import { setupTools, toolStatus } from '../lib/tools.mjs';
 import { init, install, skill, info, build } from '../lib/project.mjs';
 import { index, findItem, loadItem, login, logout, normalize } from '../lib/registry.mjs';
 import { studio } from '../lib/studio.mjs';
@@ -19,7 +19,8 @@ const help = `oofui ${index.version} — editable native Roblox UI
   oofui view <item>                  Inspect source before installing
   oofui docs <item>                  Read the item's API and usage guidance
   oofui info --json                  Project-aware context for agents
-  oofui doctor                      Check Node, Wally, and Rojo
+  oofui setup [--yes]                Check or install the pinned Roblox build tools
+  oofui doctor                      Check Roblox build tools and Studio
   oofui build                        Install Wally dependencies and build the game
   oofui studio open|status|close     Manage one disposable Studio session
   oofui auth login --origin <URL> --token-stdin
@@ -28,8 +29,8 @@ const help = `oofui ${index.version} — editable native Roblox UI
 Options: --cwd <dir> --project <rojo.json> --path <source-dir>
          --dry-run --overwrite --json --registry <origin> --help --version
 
-No global installation needed: npx oofui@latest <command> (after npm publication).
-The site also provides a directly installable prerelease .tgz.
+Install or update the standalone CLI: https://oofui.bytespell.com/#/docs/installation
+The standalone executable requires no Node, npm, or Bun installation.
 Paid code belongs in .oofui/private, which the CLI excludes from Git.
 To refresh source after updating the CLI, preview oofui add <items...> --dry-run,
 then repeat without --dry-run. Review and merge local edits before --overwrite.
@@ -40,7 +41,7 @@ try {
   const { values, positionals } = parseArgs({ allowPositionals: true, options: {
     cwd: { type: 'string' }, project: { type: 'string' }, path: { type: 'string' }, registry: { type: 'string' }, origin: { type: 'string' },
     'dry-run': { type: 'boolean' }, overwrite: { type: 'boolean' }, json: { type: 'boolean' },
-    'token-stdin': { type: 'boolean' }, help: { type: 'boolean', short: 'h' }, version: { type: 'boolean', short: 'v' },
+    yes: { type: 'boolean' }, 'token-stdin': { type: 'boolean' }, help: { type: 'boolean', short: 'h' }, version: { type: 'boolean', short: 'v' },
   } });
   structured = !!values.json;
   if (values.version) { console.log(index.version); process.exit(0); }
@@ -72,11 +73,11 @@ try {
   } else if (command === 'build') result = await build(root);
   else if (command === 'studio') result = await studio(root, args[0]);
   else if (command === 'doctor') {
-    result = { node: process.version, platform: process.platform, tools: Object.fromEntries(['wally', 'rojo'].map(tool => {
-      const r = spawnSync(tool, ['--version'], { cwd: root, encoding: 'utf8', timeout: 15000 });
-      return [tool, { available: r.status === 0, version: r.status === 0 ? r.stdout.trim() : null }];
-    })), studio: await studio(root, 'status') };
+    result = { platform: process.platform, tools: toolStatus(root), studio: await studio(root, 'status') };
     if (Object.values(result.tools).some(t => !t.available)) process.exitCode = 1;
+  } else if (command === 'setup') {
+    result = await setupTools(root, values.yes);
+    if (Object.values(result.tools).some(tool => !tool.available)) process.exitCode = 1;
   } else if (command === 'auth' && args[0] === 'login') {
     if (!values.origin || !values['token-stdin']) throw Error('Use oofui auth login --origin <store URL> --token-stdin. Pipe the access code securely; never put it in command arguments.');
     let text = '';

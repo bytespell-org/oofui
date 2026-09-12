@@ -21,10 +21,28 @@ and compose native Roblox UI. `oofui init` installs it automatically.
 ## Add it to your game
 
 The CLI adds editable source, resolves dependencies, connects Rojo, and installs
-an agent skill. Node 22.12+, Wally and Rojo are required:
+an agent skill. No Node, npm, or Bun installation is needed.
+
+**Windows PowerShell**
+
+```powershell
+irm https://oofui.bytespell.com/install.ps1 | iex
+```
+
+**macOS / Linux**
 
 ```sh
-npm install -g https://oofui.bytespell.com/downloads/oofui-0.1.0.tgz
+curl -fsSL https://oofui.bytespell.com/install.sh | sh
+```
+
+The installer sets up missing Rojo and Wally tools. On macOS/Linux, open a new
+terminal afterward. Supports Windows x64, macOS Apple silicon/Intel, and Linux
+x64 with glibc. Wally requires Rosetta on Apple silicon; Linux needs curl and
+unzip. Roblox Studio itself requires Windows or macOS.
+
+Then, in your game folder:
+
+```sh
 mkdir my-game
 cd my-game
 oofui init
@@ -35,8 +53,9 @@ oofui studio open
 ```
 
 The [docs site](https://oofui.bytespell.com/#/docs/installation) hosts the audited CLI
-and free source ZIPs. To build the CLI from this checkout, use `npm install -g ./cli`.
-Npm registry publication is optional and remains pending; use the site URL above.
+and free source ZIPs. Rerun the installer to update; see the guide for uninstall
+instructions. To run the CLI from source, Node 22.12+ and `npm install -g ./cli`
+remain available. Npm registry publication is optional and remains pending.
 `oofui init` preserves an existing Rojo game's mappings and installs the project
 skill at `.agents/skills/oofui`. Ask your agent: "Use $oofui to add a player UI."
 Read the [skill](skills/oofui/SKILL.md) for the complete workflow.

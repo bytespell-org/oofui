@@ -1,0 +1,61 @@
+{
+  "rojo": {
+    "version": "7.7.0",
+    "targets": {
+      "linux-x64": {
+        "url": "https://github.com/rojo-rbx/rojo/releases/download/v7.7.0/rojo-7.7.0-linux-x86_64.zip",
+        "sha256": "22503e5839864f9d7c2171c48b536fc229f2cc4d8774c9cc149f60941d864073",
+        "binarySha256": "7ff204d777e2b8a93f2b587c7e09b5e827af94411f84574e97dcfee4d647152e",
+        "executable": "rojo"
+      },
+      "darwin-arm64": {
+        "url": "https://github.com/rojo-rbx/rojo/releases/download/v7.7.0/rojo-7.7.0-macos-aarch64.zip",
+        "sha256": "000f663eb406ec4670e1b675069a5e9fdb6e131505ff60f6a8e28bc8a97488cd",
+        "binarySha256": "8eea1b639c3c4279583f8ece7b94bfb6b2011e5dbb5b95739425dd19b904a105",
+        "executable": "rojo"
+      },
+      "darwin-x64": {
+        "url": "https://github.com/rojo-rbx/rojo/releases/download/v7.7.0/rojo-7.7.0-macos-x86_64.zip",
+        "sha256": "9bd69697ca3a0abf0ec847c779013e7315501b2d997d63d5e1766e14d49d9c66",
+        "binarySha256": "571e186637ddac6961e97e5b744f8fec33c3ef02fa77ba9fa2e63c2ad3b5f2a8",
+        "executable": "rojo"
+      },
+      "win32-x64": {
+        "url": "https://github.com/rojo-rbx/rojo/releases/download/v7.7.0/rojo-7.7.0-windows-x86_64.zip",
+        "sha256": "2179c44862a10ecbd725bdfeb4abc64e16dc4aad9b6c8f3e1a7c46a87280b949",
+        "binarySha256": "d9154aa9b1d5997967565679d107bf719e273f5881c3c9e263fd6fd223d5e81e",
+        "executable": "rojo.exe"
+      }
+    }
+  },
+  "wally": {
+    "version": "0.3.2",
+    "targets": {
+      "linux-x64": {
+        "url": "https://github.com/UpliftGames/wally/releases/download/v0.3.2/wally-v0.3.2-linux.zip",
+        "sha256": "21fdbb53dfee397fd21ca7fdd208db65cff0f87f0fd045cdb594b951981bd73f",
+        "binarySha256": "97aac6fe084b6594d8c37875f19920a19e13b085184b33f988c66cc01973470d",
+        "executable": "wally"
+      },
+      "darwin-x64": {
+        "url": "https://github.com/UpliftGames/wally/releases/download/v0.3.2/wally-v0.3.2-macos.zip",
+        "sha256": "f743afd894bd41f285fd45f638f368af6f01f77078ae140f2991a3fb4612d2f0",
+        "binarySha256": "fe32f4efcf13bbc7ed3e0772e337571de87b0bf0bbe0162dd66502698ab6205b",
+        "executable": "wally"
+      },
+      "win32-x64": {
+        "url": "https://github.com/UpliftGames/wally/releases/download/v0.3.2/wally-v0.3.2-win64.zip",
+        "sha256": "957dd85c1f0626007018a252cf099b75e1e23d9a181c4830b66cf298707d8fb7",
+        "binarySha256": "3c758cc15d67b96e71d6b53eed5510502a470ee12d9083954d98ded5f0b3cbf9",
+        "executable": "wally.exe"
+      },
+      "darwin-arm64": {
+        "url": "https://github.com/UpliftGames/wally/releases/download/v0.3.2/wally-v0.3.2-macos.zip",
+        "sha256": "f743afd894bd41f285fd45f638f368af6f01f77078ae140f2991a3fb4612d2f0",
+        "binarySha256": "fe32f4efcf13bbc7ed3e0772e337571de87b0bf0bbe0162dd66502698ab6205b",
+        "executable": "wally",
+        "requiresRosetta": true
+      }
+    }
+  }
+}

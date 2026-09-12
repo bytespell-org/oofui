@@ -2,7 +2,9 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { apply, read, json, hash, relativeName, destination } from './files.mjs';
-import { closure, loadItem, index, packageRoot, findItem, credentials, purchaseRequired } from './registry.mjs';
+import { closure, loadItem, index, findItem, credentials, purchaseRequired } from './registry.mjs';
+import { asset, assetNames } from './assets.mjs';
+import { resolveTool } from './tools.mjs';
 
 export const privateRoot = '.oofui/private';
 const configName = 'oofui.json';
@@ -17,7 +19,7 @@ export async function config(root) {
   return value;
 }
 function run(tool, args, cwd) {
-  const result = spawnSync(tool, args, { cwd, encoding: 'utf8', shell: false, timeout: 120000 });
+  const result = spawnSync(resolveTool(tool, cwd).path, args, { cwd, encoding: 'utf8', shell: false, timeout: 120000 });
   if (result.error || result.status !== 0) throw Error(`${tool} failed. ${result.error?.message || result.stderr || result.stdout}`);
   return result.stdout;
 }
@@ -119,14 +121,7 @@ export async function install(root, names, options = {}) {
 
 async function skillWrites() {
   const writes = new Map();
-  async function visit(dir, prefix = '') {
-    for (const file of await fs.readdir(dir, { withFileTypes: true })) {
-      const relative = prefix + file.name;
-      if (file.isDirectory()) await visit(new URL(file.name + '/', dir), relative + '/');
-      else writes.set('.agents/skills/oofui/' + relative, await fs.readFile(new URL(file.name, dir)));
-    }
-  }
-  await visit(new URL('skill/', packageRoot));
+  for (const name of await assetNames('skill/')) writes.set('.agents/skills/oofui/' + name.slice(6), await asset(name));
   return writes;
 }
 export async function skill(root, options = {}) {
@@ -170,7 +165,7 @@ export async function init(root, options = {}) {
     if (!existing) wally = wally.replace(/^\[dependencies\]\s*$/m, `[dependencies]\n${name} = "${value}"`);
   }
   managed['wally.toml'] = managedChange(writes, oldWally, 'wally.toml', wally);
-  if (!await read(path.join(root, 'rokit.toml'))) writes.set('rokit.toml', await fs.readFile(new URL('templates/rokit.toml', packageRoot)));
+  if (!await read(path.join(root, 'rokit.toml'))) writes.set('rokit.toml', await asset('templates/rokit.toml'));
   const c = { schemaVersion: 1, version: index.version, path: sourcePath, project: projectName, registry: options.registry || null, installed: ['_base'], managed: {} };
   const base = await loadItem(findItem('_base'));
   for (const file of base.files) writes.set(sourcePath + '/' + file.path, Buffer.from(file.content, 'base64'));

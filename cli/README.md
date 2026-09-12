@@ -2,14 +2,15 @@
 
 Editable native Roblox UI, with a CLI and project skill.
 
-During prerelease, copy the one-line install command from the oof/ui docs site.
-It downloads the audited `.tgz` and adds `oofui` to npm's global bin directory.
-No shell profile edit or piped installer is needed when npm's bin is on PATH.
-The package has no runtime npm dependencies or install scripts.
+Install the standalone CLI from [the installation guide](https://oofui.bytespell.com/#/docs/installation).
+No Node, npm, or Bun installation is needed. The installer adds the CLI to your
+user account and sets up missing pinned Rojo/Wally tools. Rerun it to update.
+Windows x64, macOS Apple silicon/Intel, and Linux x64 with glibc are supported.
+Wally requires Rosetta on Apple silicon; Linux needs curl and unzip.
 
-A global install is optional: use `npx --yes <download URL> init`, and use that
-same prefix in place of `oofui` for every subsequent command. Npm publication
-is still pending; do not assume `npx oofui@latest` is available yet.
+The npm package remains optional for users with Node 22.12+. It has no runtime
+npm dependencies or install scripts. Npm registry publication remains pending;
+use the tarball linked from the installation guide.
 
 ```sh
 oofui init
@@ -21,8 +22,8 @@ oofui build
 oofui studio open
 ```
 
-Node 22.12+, Wally and Rojo are required for building. Run `rokit install` to
-install the pinned Roblox tools. `init` creates or merges a Rojo game, pins React
+Run `oofui setup --yes` to set up missing Roblox tools. Existing compatible
+Rojo/Wally installations are reused; managed tools are private to oofui. `init` creates or merges a Rojo game, pins React
 dependencies in Wally, and installs the project skill. It does not replace game
 code. Repeat adds preserve local edits; review conflicts before `--overwrite`.
 
