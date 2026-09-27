@@ -3,8 +3,9 @@
 Inspect `git status` first and preserve unrelated work. Install the pinned
 Rokit tools with `rokit install` and dependencies with `wally install`.
 
-`default.project.json` builds the library. `showcase.project.json` builds a
-deterministic example game. Keep generated Packages and build output out of Git.
+`default.project.json` builds the library. `standalone.project.json` builds the
+drop-in model with React bundled (`npm run build:model`). `showcase.project.json`
+builds a deterministic example game. Keep generated Packages and build output out of Git.
 Use `rojo serve showcase.project.json` for source-driven iteration.
 
 Use Roblox Studio's official CLI to open one built place. On macOS:

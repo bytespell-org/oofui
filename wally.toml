@@ -30,6 +30,7 @@ include = [
   "src/components/Text.luau",
   "src/components/TextField.luau",
   "src/init.luau",
+  "src/mount.luau",
   "src/internal/ControlChrome.luau",
   "src/internal/ButtonBadge.luau",
   "src/internal/FieldContext.luau",

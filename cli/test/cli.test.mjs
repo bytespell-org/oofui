@@ -65,8 +65,10 @@ test('human docs and repeat initialization stay concise while JSON remains struc
   assert.match(repeat.stdout, /Already initialized/);
   assert.doesNotMatch(repeat.stdout, /managed|schemaVersion/);
   const docs = await exec(process.execPath, [cli, 'docs', 'button', '--cwd', root]);
-  assert.match(docs.stdout, /Button · Core \(free\)/);
+  assert.match(docs.stdout, /Button · free component/);
   assert.match(docs.stdout, /#\/components\/button/);
+  assert.match(docs.stdout, /variant +"primary" \| "secondary"/);
+  assert.match(docs.stdout, /e\(Ui\.Button, \{/);
   const structured = JSON.parse((await run(root, ['docs', 'button'])).stdout);
   assert.equal(structured.id, 'button');
   assert.equal(structured.reference, 'https://oofui.bytespell.com/#/components/button');
@@ -167,4 +169,27 @@ test('rejects generated dependency paths on case-insensitive filesystems before 
   }
   await assert.rejects(run(root, ['init', '--project', 'nested/default.project.json']), /game root/);
   assert.deepEqual(await fs.readdir(root), []);
+});
+test('fresh init scaffolds a runnable starter HUD; --bare and existing games skip it', async t => {
+  const root = await temporary(t);
+  await run(root, ['init']);
+  const client = await fs.readFile(path.join(root, 'src/client/init.client.luau'), 'utf8');
+  assert.match(client, /Ui\.mount\(/);
+  const entry = await fs.readFile(path.join(root, 'vendor/oofui/entry.luau'), 'utf8');
+  assert.match(entry, /mount = require\(script\.mount\)/);
+  for (const module of ['Button', 'Container', 'ProgressBar', 'Text']) assert.match(entry, new RegExp('Ui\\.' + module + ' ='));
+  assert.ok((await fs.stat(path.join(root, 'vendor/oofui/mount.luau'))).isFile());
+  const bare = await temporary(t);
+  await run(bare, ['init', '--bare']);
+  assert.doesNotMatch(await fs.readFile(path.join(bare, 'src/client/init.client.luau'), 'utf8'), /Ui\.mount/);
+  assert.deepEqual(JSON.parse(await fs.readFile(path.join(bare, 'oofui.json'))).installed, ['_base']);
+});
+test('discovery groups the catalog, marks installed items and suggests close names', async t => {
+  const root = await temporary(t);
+  await run(root, ['init', '--bare']); await run(root, ['add', 'switch']);
+  const list = await exec(process.execPath, [cli, 'list', '--cwd', root]);
+  assert.match(list.stdout, /Components \(free, MIT\)/);
+  assert.match(list.stdout, /✓ switch/);
+  assert.ok(list.stdout.indexOf('Components') < list.stdout.indexOf('Pro Plus'));
+  await assert.rejects(exec(process.execPath, [cli, 'add', 'swich', '--cwd', root]), error => /Did you mean switch\?/.test(error.stderr));
 });

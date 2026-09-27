@@ -6,7 +6,8 @@
     "build:registry": "node scripts/build-registry.mjs",
     "test": "node --test cli/test/*.test.mjs",
     "prebuild": "node -e \"require('node:fs').mkdirSync('build', {recursive:true})\"",
-    "build": "rojo build default.project.json -o build/oofui.rbxmx"
+    "build": "rojo build default.project.json -o build/oofui.rbxmx",
+    "build:model": "wally install && rojo build standalone.project.json -o build/oofui-standalone.rbxm"
   },
   "engines": {
     "node": ">=22.12.0"

@@ -7,9 +7,32 @@ import { asset } from './assets.mjs';
 export const packageRoot = new URL('../', import.meta.url);
 export const index = JSON.parse(await asset('registry/index.json'));
 export const normalize = name => name.toLowerCase().replace(/[-_ ]/g, '');
+function distance(a, b) {
+  const row = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    let diagonal = row[0]; row[0] = i;
+    for (let j = 1; j <= b.length; j++) {
+      const above = row[j];
+      row[j] = Math.min(row[j] + 1, row[j - 1] + 1, diagonal + (a[i - 1] === b[j - 1] ? 0 : 1));
+      diagonal = above;
+    }
+  }
+  return row[b.length];
+}
+export function suggest(name) {
+  const query = normalize(name);
+  const scored = index.items.filter(i => i.kind !== 'internal')
+    .map(i => ({ id: i.id, score: normalize(i.id).includes(query) || query.includes(normalize(i.id)) ? 0 : distance(query, normalize(i.id)) }))
+    .filter(s => s.score <= Math.max(2, Math.floor(query.length / 3)))
+    .sort((a, b) => a.score - b.score);
+  return scored.slice(0, 3).map(s => s.id);
+}
 export function findItem(name) {
   const item = index.items.find(i => normalize(i.id) === normalize(name));
-  if (!item) throw Error('Unknown item ' + name + '. Run oofui list to see available items.');
+  if (!item) {
+    const close = suggest(name);
+    throw Error(`Unknown item ${name}.${close.length ? ' Did you mean ' + close.join(', ') + '?' : ''} Run oofui list to see available items.`);
+  }
   return item;
 }
 export function origin(value) {

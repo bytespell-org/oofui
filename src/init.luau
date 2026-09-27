@@ -1,8 +1,14 @@
 --!strict
 
+local Dependencies = require(script.Dependencies)
+
 local Primitives = {
 	styles = require(script.styles),
 	types = require(script.types),
+	mount = require(script.mount),
+	-- The React copy this library uses; the standalone model bundles it.
+	React = Dependencies.React,
+	ReactRoblox = Dependencies.ReactRoblox,
 }
 
 Primitives.Button = require(script.components.Button)

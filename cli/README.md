@@ -13,17 +13,17 @@ npm dependencies or install scripts. Npm registry publication remains pending;
 use the tarball linked from the installation guide.
 
 ```sh
-oofui init
-oofui component add progressbar
-oofui skill add
-oofui info --json
-oofui add inventory --dry-run
-oofui build
-oofui studio open
+oofui init                 # Rojo game + starter HUD (--bare to skip it)
+oofui build && oofui studio open
+oofui dev                  # live-sync with the Rojo Studio plugin
+oofui list                 # browse components
+oofui docs button          # props and a copy-paste example
+oofui add dialog switch
+oofui doctor
 ```
 
 Run `oofui setup --yes` to set up missing Roblox tools. Existing compatible
-Rojo/Wally installations are reused; managed tools are private to oofui. `init` creates or merges a Rojo game, pins React
+Rojo/Wally installations are reused; managed tools are private to oofui. `init` creates or merges a Rojo game (a new game also gets a starter HUD), pins React
 dependencies in Wally, and installs the project skill. It does not replace game
 code. Repeat adds preserve local edits; review conflicts before `--overwrite`.
 

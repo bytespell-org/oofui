@@ -3,45 +3,54 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
 import { setupTools, toolStatus } from '../lib/tools.mjs';
-import { init, install, skill, info, build } from '../lib/project.mjs';
+import { init, install, skill, info, build, dev } from '../lib/project.mjs';
 import { index, findItem, loadItem, login, logout, normalize } from '../lib/registry.mjs';
-import { studio } from '../lib/studio.mjs';
+import { docs, formatDocs } from '../lib/docs.mjs';
+import { formatList, formatDoctor, formatInit, formatAdd } from '../lib/format.mjs';
+import { studio, executable } from '../lib/studio.mjs';
 
-const help = `oofui ${index.version} — editable native Roblox UI
+const help = `oofui ${index.version} — editable native Roblox UI components
 
-  oofui init                         Set up a new or existing Rojo game + agent skill
-  oofui add progressbar button       Add components and their dependencies
-  oofui component add progressbar    Explicit component alias
-  oofui theme add circuit            Install a purchased theme
-  oofui kit add inventory            Install a Pro Plus kit
-  oofui skill add                    Install .agents/skills/oofui into this project
-  oofui list [query]                 Discover free and paid components
-  oofui view <item>                  Inspect source before installing
-  oofui docs <item>                  Read the item's API and usage guidance
-  oofui info --json                  Project-aware context for agents
-  oofui setup [--yes]                Check or install the pinned Roblox build tools
-  oofui doctor                      Check Roblox build tools and Studio
-  oofui build                        Install Wally dependencies and build the game
-  oofui studio open|status|close     Manage one disposable Studio session
+Get started
+  oofui init                     New Rojo game with a starter HUD (--bare to skip the HUD)
+  oofui build                    Install Wally packages and build build/game.rbxlx
+  oofui studio open              Open the build in Studio, then press Play
+  oofui dev                      Live-sync edits into Studio with rojo serve
+
+Components
+  oofui list [query]             Browse components and themes
+  oofui docs <item>              Props and a copy-paste example
+  oofui add <items...>           Add components; dependencies come along
+  oofui view <item>              Print an item's source before installing
+
+Project
+  oofui doctor                   Check Rojo, Wally and Studio
+  oofui setup [--yes]            Install the pinned Rojo and Wally tools
+  oofui info --json              Project context for agents
+  oofui skill add                Install the agent skill at .agents/skills/oofui
+  oofui studio status|close      Manage the Studio window oofui opened
+
+Pro themes and kits
+  oofui theme add <name>         oofui kit add <name>
   oofui auth login --origin <URL> --token-stdin
-  oofui auth logout                  Remove the saved purchase credential
+  oofui auth logout
 
-Options: --cwd <dir> --project <rojo.json> --path <source-dir>
+Options: --cwd <dir> --project <rojo.json> --path <source-dir> --bare
          --dry-run --overwrite --json --registry <origin> --help --version
 
-Install or update the standalone CLI: https://oofui.bytespell.com/#/docs/installation
-The standalone executable requires no Node, npm, or Bun installation.
-Paid code belongs in .oofui/private, which the CLI excludes from Git.
-To refresh source after updating the CLI, preview oofui add <items...> --dry-run,
-then repeat without --dry-run. Review and merge local edits before --overwrite.
-Update guide: https://oofui.bytespell.com/#/docs/cli?section=updating
+Your local edits are protected: preview updates with --dry-run, and nothing
+you changed is replaced without --overwrite. Paid code lives in ignored .oofui/private.
+Docs and installer: https://oofui.bytespell.com
 `;
 let structured = false;
+async function installedIds(root) {
+  try { return (await info(root)).installed.map(item => item.id); } catch { return []; }
+}
 try {
   const { values, positionals } = parseArgs({ allowPositionals: true, options: {
     cwd: { type: 'string' }, project: { type: 'string' }, path: { type: 'string' }, registry: { type: 'string' }, origin: { type: 'string' },
     'dry-run': { type: 'boolean' }, overwrite: { type: 'boolean' }, json: { type: 'boolean' },
-    yes: { type: 'boolean' }, 'token-stdin': { type: 'boolean' }, help: { type: 'boolean', short: 'h' }, version: { type: 'boolean', short: 'v' },
+    yes: { type: 'boolean' }, bare: { type: 'boolean' }, 'token-stdin': { type: 'boolean' }, help: { type: 'boolean', short: 'h' }, version: { type: 'boolean', short: 'v' },
   } });
   structured = !!values.json;
   if (values.version) { console.log(index.version); process.exit(0); }
@@ -59,21 +68,20 @@ try {
   } else if (command === 'skill' && args[0] === 'add') result = await skill(root, options);
   else if (command === 'list') {
     const query = normalize(args.join(' '));
-    result = index.items.filter(i => i.kind !== 'internal' && normalize(i.id + ' ' + i.description).includes(query));
+    result = index.items.filter(i => i.kind !== 'internal' && normalize(i.id + ' ' + i.module + ' ' + i.description).includes(query));
   } else if (command === 'info') result = await info(root);
-  else if (command === 'view' || command === 'docs') {
-    if (args.length !== 1) throw Error('Choose one item.');
-    const item = findItem(args[0]);
-    if (command === 'docs') {
-      result = { ...item, files: undefined, add: 'oofui add ' + item.id, api: 'oofui view ' + item.id,
-        usage: item.kind === 'kit' ? `React.createElement(Ui.kits.${item.module}, props)` : item.kind === 'theme' ? `Ui.styles.createTheme({ theme = Ui.styles.themes.${item.id} })` : `React.createElement(Ui.${item.module}, props)`,
-        reference: `https://oofui.bytespell.com/#/${item.kind === 'kit' ? 'kits/' + item.id : item.kind === 'theme' ? 'themes?section=' + item.id : 'components/' + item.id}`,
-        guidance: 'Use lowercase component props. Mount StyleProvider inside a ScreenGui with ZIndexBehavior = Enum.ZIndexBehavior.Sibling. Read the source Props type with view before composing. Paid kits expose intent callbacks; game servers validate ownership, currency, rewards, and requests.' };
-    } else result = await loadItem(item, values.registry);
+  else if (command === 'docs') {
+    if (args.length !== 1) throw Error('Choose one item, for example oofui docs button.');
+    result = await docs(args[0], await installedIds(root));
+  } else if (command === 'view') {
+    if (args.length !== 1) throw Error('Choose one item, for example oofui view button.');
+    result = await loadItem(findItem(args[0]), values.registry);
   } else if (command === 'build') result = await build(root);
+  else if (command === 'dev') { await dev(root); process.exit(0); }
   else if (command === 'studio') result = await studio(root, args[0]);
   else if (command === 'doctor') {
-    result = { platform: process.platform, tools: toolStatus(root), studio: await studio(root, 'status') };
+    result = { platform: process.platform, tools: toolStatus(root), studio: await studio(root, 'status'),
+      studioPath: await executable().catch(() => null) };
     if (Object.values(result.tools).some(t => !t.available)) process.exitCode = 1;
   } else if (command === 'setup') {
     result = await setupTools(root, values.yes);
@@ -86,13 +94,16 @@ try {
   } else if (command === 'auth' && args[0] === 'logout') { await logout(); result = { signedOut: true }; }
   else throw Error('Unknown command. Run oofui --help.');
   if (!structured && command === 'docs') {
-    console.log(`${result.module || result.id} · ${result.tier === 'free' ? 'Core (free)' : result.tier === 'pro-plus' ? 'Pro Plus' : 'Pro'}\n${result.description}\n\nInstall: ${result.add}\nUse: ${result.usage}\n\nAPI reference: ${result.reference}\nInspect Props and source: ${result.api}\n\n${result.guidance}`);
+    console.log(formatDocs(result));
   } else if (!structured && command === 'view') {
     for (const file of result.files) {
       if (file.path.endsWith('.luau') || file.path.endsWith('.md')) console.log('\n--- ' + file.path + ' ---\n' + Buffer.from(file.content, 'base64').toString());
       else console.log(file.path + ' (' + file.sha256.slice(0, 12) + ')');
     }
-  } else if (!structured && command === 'list') for (const item of result) console.log(`${item.id.padEnd(22)} ${item.kind.padEnd(10)} ${item.tier}`);
+  } else if (!structured && command === 'list') console.log(formatList(result, await installedIds(root)));
+  else if (!structured && command === 'doctor') console.log(formatDoctor(result));
+  else if (!structured && command === 'init' && result.changes && !options.dryRun) console.log(formatInit(result));
+  else if (!structured && command === 'add' && !options.dryRun) console.log(formatAdd(result));
   else if (!structured && result.changes) {
     if (options.dryRun) {
       console.log('Preview only — no files changed.');

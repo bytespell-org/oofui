@@ -14,10 +14,12 @@ data or grant product licenses.
 Run `oofui info --json` to read the Rojo project, source path, and installed items.
 If the command is unavailable, use the install command provided by the oof/ui
 docs site or the project's README. Avoid assuming an unpublished npm version is
-available. For a new project run `oofui init`; it also installs this skill.
+available. For a new project run `oofui init`; it also installs this skill, a starter HUD
+in `src/client/init.client.luau` and Button, Container, ProgressBar and Text
+(`--bare` skips the HUD). `oofui dev` live-syncs through the Rojo plugin.
 
-Use `oofui list`, `oofui docs <item>`, and `oofui view <item>` to inspect the
-actual API. Accept aliases such as `progressbar` and `progress-bar`. Install with
+Use `oofui list`, `oofui docs <item>` (props with allowed values and an
+example), and `oofui view <item>` (full source) to inspect the actual API. Accept aliases such as `progressbar` and `progress-bar`. Install with
 `oofui add <items...>`; `oofui component add progressbar` is the explicit form.
 Use `--dry-run` to inspect writes. If existing code conflicts, inspect and merge
 the user's changes; do not automatically use `--overwrite`.
@@ -29,13 +31,16 @@ Import the installed library through `ReplicatedStorage.OofUi` and React from
 `ReplicatedStorage.Packages`. Component props are lowercase and are documented in
 the module's `Props` type; native instance props retain Roblox casing.
 
-Mount `StyleProvider` inside the `ScreenGui` and set
-`ZIndexBehavior = Enum.ZIndexBehavior.Sibling` on that ScreenGui. The library's
-nested surfaces rely on sibling layering; Global can cover text and item art.
+Mount with `Ui.mount(element, { theme = "default" })`; it creates the ScreenGui,
+theme, style sheet and root with the required settings and returns a handle with
+`render`, `setTheme` and `unmount`. When mounting manually, put `StyleProvider`
+inside the `ScreenGui` and set `ZIndexBehavior = Enum.ZIndexBehavior.Sibling`.
+The library's nested surfaces rely on sibling layering; Global can cover text
+and item art.
 Keep gameplay UI inside
 `CoreUISafeInsets`, disable automatic safe-area extension, and use the default
 player and Humanoid camera for game previews. Theme changes belong in
-`createTheme({ theme = Ui.styles.themes.<id>, overrides = ... })`.
+`ui:setTheme("<id>", overrides)` or `createTheme({ theme = "<id>", overrides = ... })`.
 
 Choose an existing kit when it fits: Inventory, Quest Log, Season Pass, Daily
 Rewards, Item Shop, Crafting, Collection, Upgrades, Inventory Bar, Player Card,

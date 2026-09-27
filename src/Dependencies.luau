@@ -2,7 +2,10 @@
 
 local packageRoot = script.Parent
 local container = packageRoot.Parent
-local packages = container:FindFirstChild("Packages") or container
+
+-- The standalone model bundles React inside the library (OofUi.Packages); Rojo
+-- games and Wally installs keep it beside the library.
+local packages = packageRoot:FindFirstChild("Packages") or container:FindFirstChild("Packages") or container
 
 local ReactModule = packages:FindFirstChild("React")
 local ReactRobloxModule = packages:FindFirstChild("ReactRoblox")

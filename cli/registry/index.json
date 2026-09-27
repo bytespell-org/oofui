@@ -15,18 +15,6 @@
     {
       "schemaVersion": 1,
       "version": "0.1.0",
-      "id": "text-field",
-      "kind": "component",
-      "tier": "free",
-      "module": "TextField",
-      "dependencies": [
-        "_base"
-      ],
-      "description": "Native Roblox TextField primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
       "id": "field",
       "kind": "component",
       "tier": "free",
@@ -34,82 +22,63 @@
       "dependencies": [
         "_base"
       ],
-      "description": "Native Roblox Field primitive."
+      "description": "Pairs a label, description and error with a control, horizontally or vertically.",
+      "example": "e(Ui.Field, { orientation = \"horizontal\" }, {\n\tContent = e(Ui.FieldContent, { layoutOrder = 1 }, {\n\t\tLabel = e(Ui.FieldLabel, { text = \"Music\" }),\n\t\tHint = e(Ui.FieldDescription, { text = \"Background soundtrack\" }),\n\t}),\n\tToggle = e(Ui.Switch, { checked = musicOn, onCheckedChanged = setMusicOn, layoutOrder = 2 }),\n})"
     },
     {
       "schemaVersion": 1,
       "version": "0.1.0",
-      "id": "field-error",
+      "id": "progress-bar",
       "kind": "component",
       "tier": "free",
-      "module": "FieldError",
-      "dependencies": [
-        "_base",
-        "text"
-      ],
-      "description": "Native Roblox FieldError primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "checkbox",
-      "kind": "component",
-      "tier": "free",
-      "module": "Checkbox",
-      "dependencies": [
-        "_base",
-        "text"
-      ],
-      "description": "Native Roblox Checkbox primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "button",
-      "kind": "component",
-      "tier": "free",
-      "module": "Button",
-      "dependencies": [
-        "_base",
-        "text"
-      ],
-      "description": "Native Roblox Button primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "field-group",
-      "kind": "component",
-      "tier": "free",
-      "module": "FieldGroup",
+      "module": "ProgressBar",
       "dependencies": [
         "_base"
       ],
-      "description": "Native Roblox FieldGroup primitive."
+      "description": "Horizontal or vertical bar for XP, health, loading and quest progress.",
+      "example": "e(Ui.ProgressBar, {\n\tvalue = xp,\n\tmaximum = 100,\n\t-- indeterminate = true, -- animated loading state\n})"
     },
     {
       "schemaVersion": 1,
       "version": "0.1.0",
-      "id": "field-content",
+      "id": "switch",
       "kind": "component",
       "tier": "free",
-      "module": "FieldContent",
+      "module": "Switch",
       "dependencies": [
         "_base"
       ],
-      "description": "Native Roblox FieldContent primitive."
+      "description": "On/off toggle for settings; controlled or uncontrolled.",
+      "example": "e(Ui.Switch, {\n\tchecked = musicOn,\n\tonCheckedChanged = setMusicOn,\n})"
     },
     {
       "schemaVersion": 1,
       "version": "0.1.0",
-      "id": "text",
+      "id": "hold-button",
       "kind": "component",
       "tier": "free",
-      "module": "Text",
+      "module": "HoldButton",
+      "dependencies": [
+        "_base",
+        "progress-bar",
+        "radial-progress",
+        "text"
+      ],
+      "description": "Press-and-hold confirmation with linear or radial progress, for risky actions.",
+      "example": "e(Ui.HoldButton, {\n\ttext = \"Hold to sell\",\n\tvariant = \"destructive\",\n\tduration = 1.2,\n\tonCompleted = sellItem,\n})"
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "radial-progress",
+      "kind": "component",
+      "tier": "free",
+      "module": "RadialProgress",
       "dependencies": [
         "_base"
       ],
-      "description": "Native Roblox Text primitive."
+      "description": "Circular progress ring for cooldowns and timers; can hold content inside.",
+      "example": "e(Ui.RadialProgress, {\n\tvalue = cooldownLeft,\n\tmaximum = 10,\n}, {\n\tLabel = e(Ui.Text, { text = tostring(cooldownLeft), variant = \"caption\" }),\n})"
     },
     {
       "schemaVersion": 1,
@@ -122,7 +91,21 @@
         "_base",
         "text"
       ],
-      "description": "Native Roblox FieldLabel primitive."
+      "description": "Label for a Field, with a required marker.",
+      "example": "e(Ui.FieldLabel, { text = \"Display name\", required = true })"
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "field-group",
+      "kind": "component",
+      "tier": "free",
+      "module": "FieldGroup",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Stacks several Fields with consistent spacing, e.g. a settings page.",
+      "example": "e(Ui.FieldGroup, nil, {\n\tMusic = e(Ui.Field, { layoutOrder = 1 }, musicRow),\n\tSfx = e(Ui.Field, { layoutOrder = 2 }, sfxRow),\n})"
     },
     {
       "schemaVersion": 1,
@@ -135,22 +118,131 @@
         "_base",
         "text"
       ],
-      "description": "Native Roblox FieldDescription primitive."
+      "description": "Helper text under a Field label.",
+      "example": "e(Ui.FieldDescription, { text = \"Shown to other players\" })"
     },
     {
       "schemaVersion": 1,
       "version": "0.1.0",
-      "id": "hold-button",
+      "id": "text-field",
       "kind": "component",
       "tier": "free",
-      "module": "HoldButton",
+      "module": "TextField",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Single or multi-line text input with placeholder, invalid and read-only states.",
+      "example": "e(Ui.TextField, {\n\tplaceholder = \"Enter a code\",\n\tonSubmitted = function(text)\n\t\tredeem(text)\n\tend,\n})"
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "container",
+      "kind": "component",
+      "tier": "free",
+      "module": "Container",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Themed panel that auto-sizes to its children and stacks them vertically.",
+      "example": "e(Ui.Container, {\n\tvariant = \"raised\", -- surface | raised | muted | accent | destructive\n\tsize = UDim2.fromOffset(320, 0), -- height grows with content\n\tposition = UDim2.fromOffset(24, 24),\n\tcontentPadding = UDim.new(0, 16),\n}, {\n\tTitle = e(Ui.Text, { text = \"Quests\", variant = \"heading\", layoutOrder = 1 }),\n\tBody = e(Ui.Text, { text = \"Find the lost relic.\", layoutOrder = 2 }),\n})"
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "dialog",
+      "kind": "component",
+      "tier": "free",
+      "module": "Dialog",
       "dependencies": [
         "_base",
+        "container",
         "text",
-        "radial-progress",
-        "progress-bar"
+        "icon-button"
       ],
-      "description": "Native Roblox HoldButton primitive."
+      "description": "Modal window with title, body, footer actions, backdrop and gamepad/Escape dismissal.",
+      "example": "e(Ui.Dialog, {\n\topen = isOpen,\n\ttitle = \"Leave the match?\",\n\tdescription = \"Your progress will be saved.\",\n\tonOpenChange = setOpen,\n\tfooter = {\n\t\tConfirm = e(Ui.Button, { text = \"Leave\", variant = \"destructive\", onActivated = leave }),\n\t},\n})"
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "checkbox",
+      "kind": "component",
+      "tier": "free",
+      "module": "Checkbox",
+      "dependencies": [
+        "_base",
+        "text"
+      ],
+      "description": "Checkbox with checked, indeterminate and invalid states; controlled or uncontrolled.",
+      "example": "e(Ui.Checkbox, {\n\tchecked = accepted,\n\tonCheckedChanged = setAccepted,\n})"
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "radio-group",
+      "kind": "component",
+      "tier": "free",
+      "module": "RadioGroup",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Single-choice group of RadioGroupItem options with keyboard and gamepad navigation.",
+      "example": "e(Ui.RadioGroup, {\n\tvalue = difficulty,\n\tonValueChanged = setDifficulty,\n}, {\n\tEasy = e(Ui.RadioGroupItem, { value = \"easy\", layoutOrder = 1 }),\n\tHard = e(Ui.RadioGroupItem, { value = \"hard\", layoutOrder = 2 }),\n})"
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "field-error",
+      "kind": "component",
+      "tier": "free",
+      "module": "FieldError",
+      "dependencies": [
+        "_base",
+        "text"
+      ],
+      "description": "Validation message for an invalid Field.",
+      "example": "e(Ui.FieldError, { text = \"Name is already taken\" })"
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "button",
+      "kind": "component",
+      "tier": "free",
+      "module": "Button",
+      "dependencies": [
+        "_base",
+        "text"
+      ],
+      "description": "Clickable action with variants, sizes, icons, loading state and badges.",
+      "example": "e(Ui.Button, {\n\ttext = \"Play\",\n\tvariant = \"primary\", -- secondary | outline | ghost | destructive\n\tonActivated = function()\n\t\tprint(\"clicked\")\n\tend,\n})"
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "text",
+      "kind": "component",
+      "tier": "free",
+      "module": "Text",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "Themed label with display, heading, body, subtext and caption styles.",
+      "example": "e(Ui.Text, {\n\ttext = \"Welcome back\",\n\tvariant = \"heading\", -- display | heading | body | subtext | caption\n\ttone = \"default\", -- muted | success | warning | danger\n})"
+    },
+    {
+      "schemaVersion": 1,
+      "version": "0.1.0",
+      "id": "radio-group-item",
+      "kind": "component",
+      "tier": "free",
+      "module": "RadioGroupItem",
+      "dependencies": [
+        "_base"
+      ],
+      "description": "One option inside a RadioGroup.",
+      "example": "e(Ui.RadioGroupItem, { value = \"easy\" })"
     },
     {
       "schemaVersion": 1,
@@ -162,46 +254,21 @@
       "dependencies": [
         "_base"
       ],
-      "description": "Native Roblox Separator primitive."
+      "description": "Thin horizontal or vertical divider between groups.",
+      "example": "e(Ui.Separator, { orientation = \"horizontal\" })"
     },
     {
       "schemaVersion": 1,
       "version": "0.1.0",
-      "id": "dialog",
+      "id": "field-content",
       "kind": "component",
       "tier": "free",
-      "module": "Dialog",
-      "dependencies": [
-        "_base",
-        "text",
-        "icon-button",
-        "container"
-      ],
-      "description": "Native Roblox Dialog primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "switch",
-      "kind": "component",
-      "tier": "free",
-      "module": "Switch",
+      "module": "FieldContent",
       "dependencies": [
         "_base"
       ],
-      "description": "Native Roblox Switch primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "radial-progress",
-      "kind": "component",
-      "tier": "free",
-      "module": "RadialProgress",
-      "dependencies": [
-        "_base"
-      ],
-      "description": "Native Roblox RadialProgress primitive."
+      "description": "Groups a Field's label and description text.",
+      "example": "e(Ui.FieldContent, nil, { Label = e(Ui.FieldLabel, { text = \"Name\" }) })"
     },
     {
       "schemaVersion": 1,
@@ -214,55 +281,8 @@
         "_base",
         "text"
       ],
-      "description": "Native Roblox IconButton primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "progress-bar",
-      "kind": "component",
-      "tier": "free",
-      "module": "ProgressBar",
-      "dependencies": [
-        "_base"
-      ],
-      "description": "Native Roblox ProgressBar primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "radio-group",
-      "kind": "component",
-      "tier": "free",
-      "module": "RadioGroup",
-      "dependencies": [
-        "_base"
-      ],
-      "description": "Native Roblox RadioGroup primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "radio-group-item",
-      "kind": "component",
-      "tier": "free",
-      "module": "RadioGroupItem",
-      "dependencies": [
-        "_base"
-      ],
-      "description": "Native Roblox RadioGroupItem primitive."
-    },
-    {
-      "schemaVersion": 1,
-      "version": "0.1.0",
-      "id": "container",
-      "kind": "component",
-      "tier": "free",
-      "module": "Container",
-      "dependencies": [
-        "_base"
-      ],
-      "description": "Native Roblox Container primitive."
+      "description": "Icon-only button; label is required for accessibility and gamepad hints.",
+      "example": "e(Ui.IconButton, {\n\ticon = \"rbxassetid://0000000\", -- your icon asset\n\tlabel = \"Settings\",\n\tshape = \"circle\",\n\tonActivated = openSettings,\n})"
     },
     {
       "schemaVersion": 1,
@@ -393,10 +413,10 @@
       "module": null,
       "dependencies": [
         "_base",
+        "container",
         "button",
         "text",
-        "icon-button",
-        "container"
+        "icon-button"
       ],
       "description": ""
     },
@@ -423,8 +443,8 @@
       "module": "QuestLog",
       "dependencies": [
         "_kit-base",
-        "button",
-        "progress-bar"
+        "progress-bar",
+        "button"
       ],
       "description": "Story, daily, and exploration quests with a clear next step."
     },
@@ -465,10 +485,10 @@
       "dependencies": [
         "_kit-base",
         "text-field",
-        "button",
-        "text",
+        "container",
         "dialog",
-        "container"
+        "button",
+        "text"
       ],
       "description": "A real storefront for featured finds, equipment, and consumables."
     },
@@ -495,9 +515,9 @@
       "module": "Collection",
       "dependencies": [
         "_kit-base",
+        "progress-bar",
         "text-field",
-        "text",
-        "progress-bar"
+        "text"
       ],
       "description": "An illustrated discovery journal for creatures, equipment, and world collectibles."
     },
@@ -524,9 +544,9 @@
       "module": "PlayerCard",
       "dependencies": [
         "_kit-base",
-        "button",
         "progress-bar",
-        "container"
+        "container",
+        "button"
       ],
       "description": "Player identity and vital stats, designed to live comfortably in a HUD corner."
     },
@@ -539,9 +559,9 @@
       "module": "CurrencyView",
       "dependencies": [
         "_kit-base",
+        "container",
         "button",
-        "text",
-        "container"
+        "text"
       ],
       "description": "A tidy wallet for coins, gems, or your game\u2019s own currencies."
     },

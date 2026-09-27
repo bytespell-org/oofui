@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { apply, read, json, hash, relativeName, destination } from './files.mjs';
 import { closure, loadItem, index, findItem, credentials, purchaseRequired } from './registry.mjs';
 import { asset, assetNames } from './assets.mjs';
@@ -8,6 +8,8 @@ import { resolveTool } from './tools.mjs';
 
 export const privateRoot = '.oofui/private';
 const configName = 'oofui.json';
+// Installed by a fresh `oofui init` so pressing Play shows a working HUD.
+export const starterItems = ['button', 'container', 'progress-bar', 'text'];
 const ignored = ['/.oofui/private/', '/.oofui/studio/', '/Packages/', '/DevPackages/', '/build/'];
 export async function config(root) {
   const bytes = await read(await destination(root, configName));
@@ -80,6 +82,7 @@ async function sourceTree(root, folder, writes) {
 }
 export async function install(root, names, options = {}) {
   const c = await config(root), writes = new Map(), managed = { ...c.managed };
+  const previouslyInstalled = [...c.installed];
   const paid = names.map(findItem).find(item => item.tier !== 'free');
   if (paid && !await credentials()) throw Error(purchaseRequired(paid));
   const items = closure(names);
@@ -99,7 +102,7 @@ export async function install(root, names, options = {}) {
   }
   const installed = [...new Set([...c.installed, ...items.map(i => i.id)])].sort();
   const modules = installed.map(findItem).filter(i => i.kind === 'component');
-  let source = '--!strict\n-- Installed by oofui. Implementation files are yours to edit.\nlocal Ui = { styles = require(script.styles), types = require(script.types) }\n';
+  let source = '--!strict\n-- Installed by oofui. Implementation files are yours to edit.\nlocal Ui = { styles = require(script.styles), types = require(script.types), mount = require(script.mount) }\nlocal Dependencies = require(script.Dependencies)\nUi.React, Ui.ReactRoblox = Dependencies.React, Dependencies.ReactRoblox\n';
   for (const m of modules) source += `Ui.${m.module} = require(script.components.${m.module})\n`;
   const kits = installed.map(findItem).filter(i => i.kind === 'kit');
   if (kits.length) {
@@ -116,7 +119,9 @@ export async function install(root, names, options = {}) {
   managed[configName] = hash(oldConfig);
   writes.set(configName, json(c));
   const changes = await apply(root, writes, { ...options, managed });
-  return { installed: installed.filter(id => !id.startsWith('_')), changes, dryRun: !!options.dryRun };
+  const requested = names.map(findItem).filter(i => i.kind === 'component').map(i => i.module);
+  const added = items.map(i => i.id).filter(id => !id.startsWith('_') && !previouslyInstalled.includes(id));
+  return { installed: installed.filter(id => !id.startsWith('_')), added, modules: requested, changes, dryRun: !!options.dryRun };
 }
 
 async function skillWrites() {
@@ -138,14 +143,18 @@ export async function init(root, options = {}) {
   const sourcePath = relativeName(options.path || 'vendor/oofui');
   if (/^(packages|devpackages|\.oofui)(\/|$)/i.test(sourcePath)) throw Error('Choose an editable source path outside Packages and .oofui.');
   let projectBytes = await read(await destination(root, projectName));
+  const projectBytesExisted = !!projectBytes;
   if (!projectBytes) {
     const project = { name: 'oofui-game', tree: { $className: 'DataModel',
       ReplicatedStorage: { $className: 'ReplicatedStorage', Packages: { $path: 'Packages' } },
       StarterPlayer: { StarterPlayerScripts: { $className: 'StarterPlayerScripts', Client: { $path: 'src/client' } } },
       Workspace: { $properties: { FilteringEnabled: true }, Baseplate: { $className: 'Part', $properties: { Anchored: true, Size: [512, 1, 512], Position: [0, -0.5, 0], Color: [0.22, 0.3, 0.27] } }, SpawnLocation: { $className: 'SpawnLocation', $properties: { Anchored: true, Position: [0, 1, 0], Size: [6, 1, 6], Neutral: true } } } } };
     projectBytes = Buffer.from(json(project)); writes.set(projectName, projectBytes);
-    writes.set('src/client/init.client.luau', '--!strict\n-- Ask your agent to compose a UI with the installed oofui skill.\nprint("oofui project ready")\n');
+    writes.set('src/client/init.client.luau', options.bare
+      ? '--!strict\n-- Add components with oofui add <name>, then require ReplicatedStorage.OofUi.\n'
+      : await asset('templates/starter.client.luau'));
   }
+  const starter = !projectBytesExisted && !options.bare;
   const project = JSON.parse(projectBytes);
   if (project.tree?.$className !== 'DataModel') throw Error('Choose a Rojo game project, not the library model.');
   if (project.tree.ReplicatedStorage?.OofUi) throw Error('OofUi is already mapped. Inspect that integration before initializing.');
@@ -169,7 +178,7 @@ export async function init(root, options = {}) {
   const c = { schemaVersion: 1, version: index.version, path: sourcePath, project: projectName, registry: options.registry || null, installed: ['_base'], managed: {} };
   const base = await loadItem(findItem('_base'));
   for (const file of base.files) writes.set(sourcePath + '/' + file.path, Buffer.from(file.content, 'base64'));
-  writes.set(sourcePath + '/entry.luau', '--!strict\n-- Installed by oofui. Implementation files are yours to edit.\nlocal Ui = { styles = require(script.styles), types = require(script.types) }\nreturn Ui\n');
+  writes.set(sourcePath + '/entry.luau', '--!strict\n-- Installed by oofui. Implementation files are yours to edit.\nlocal Ui = { styles = require(script.styles), types = require(script.types), mount = require(script.mount) }\nlocal Dependencies = require(script.Dependencies)\nUi.React, Ui.ReactRoblox = Dependencies.React, Dependencies.ReactRoblox\nreturn Ui\n');
   await addIgnored(root, writes, managed);
   for (const [name, bytes] of await skillWrites()) writes.set(name, bytes);
   for (const [name, value] of writes) c.managed[name] = hash(value);
@@ -178,7 +187,15 @@ export async function init(root, options = {}) {
   c.managed[projectName] = hash(json(project));
   writes.set(configName, json(c));
   const changes = await apply(root, writes, { ...options, managed });
-  return { initialized: !options.dryRun, dryRun: !!options.dryRun, changes, next: 'Run oofui add progressbar; oofui build; oofui studio open.' };
+  if (starter && !options.dryRun) {
+    const added = (await install(root, starterItems, options)).changes;
+    const seen = new Set(added.map(change => change.path));
+    changes.splice(0, changes.length, ...changes.filter(change => !seen.has(change.path)), ...added);
+  }
+  return { initialized: !options.dryRun, dryRun: !!options.dryRun, changes, created: !projectBytesExisted,
+    installed: starter && !options.dryRun ? starterItems : [],
+    next: starter ? 'oofui build, then oofui studio open and press Play to see the starter HUD in src/client/init.client.luau.'
+      : 'oofui add button progressbar, then oofui build and oofui studio open.' };
 }
 export async function info(root) {
   const c = await config(root);
@@ -192,4 +209,15 @@ export async function build(root) {
   await fs.mkdir(path.join(root, 'build'), { recursive: true });
   run('rojo', ['build', c.project, '-o', 'build/game.rbxlx'], root);
   return { built: 'build/game.rbxlx', executed: false, next: 'oofui studio open' };
+}
+
+// Live-sync source into Studio through the Rojo plugin. Runs until interrupted.
+export async function dev(root) {
+  const c = await config(root);
+  run('wally', ['install'], root);
+  console.log(`Serving ${c.project}. In Studio, open the Rojo plugin and click Connect.\nEdits under src/ and ${c.path}/ sync live. Press Ctrl+C to stop.\n`);
+  const child = spawn(resolveTool('rojo', root).path, ['serve', c.project], { cwd: root, stdio: 'inherit' });
+  const code = await new Promise((resolve, reject) => { child.once('exit', resolve); child.once('error', reject); });
+  if (code) throw Error('rojo serve exited with code ' + code + '.');
+  return { served: c.project };
 }

@@ -4,35 +4,32 @@ Use `oofui info --json` for the actual installed components. The CLI maps free
 and private source into one `ReplicatedStorage.OofUi` tree for Rojo.
 
 ```lua
-local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local React = require(ReplicatedStorage.Packages.React)
-local ReactRoblox = require(ReplicatedStorage.Packages.ReactRoblox)
 local Ui = require(ReplicatedStorage.OofUi)
 local e = React.createElement
 
-local gui = Instance.new("ScreenGui")
-gui.Name = "GameUI"
-gui.ResetOnSpawn = false
-gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-gui.ScreenInsets = Enum.ScreenInsets.CoreUISafeInsets
-gui.SafeAreaCompatibility = Enum.SafeAreaCompatibility.None
-gui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
-
-local theme = Ui.styles.createTheme({ theme = Ui.styles.themes.default })
-local sheet = Ui.styles.createStyleSheet(theme)
-local root = ReactRoblox.createRoot(gui)
-root:render(e(Ui.styles.StyleProvider, { styleSheet = sheet }, {
+local function Hud()
     -- Install with: oofui add container progressbar
-    Progress = e(Ui.Container, {
-        size = UDim2.fromOffset(300, 64),
-        automaticSize = Enum.AutomaticSize.None,
+    return e(Ui.Container, {
+        size = UDim2.fromOffset(300, 0),
         position = UDim2.fromOffset(24, 24),
+        contentPadding = UDim.new(0, 12),
     }, {
         Bar = e(Ui.ProgressBar, { value = 65, minimum = 0, maximum = 100 }),
-    }),
-}))
+    })
+end
+
+-- Creates a correctly configured ScreenGui, theme, style sheet and React root.
+local ui = Ui.mount(e(Hud), { theme = "default", name = "GameUI" })
+-- ui:render(element)  ui:setTheme(id, overrides?)  ui:unmount()
 ```
+
+Prefer `Ui.mount`. Mount manually only when the game already owns a ScreenGui:
+create it with `ZIndexBehavior = Enum.ZIndexBehavior.Sibling`,
+`ScreenInsets = CoreUISafeInsets` and `SafeAreaCompatibility = None`, then render
+`e(Ui.styles.StyleProvider, { styleSheet = Ui.styles.createStyleSheet(Ui.styles.createTheme({ theme = "default" })) }, children)`
+into a `ReactRoblox.createRoot(gui)`. Destroy the sheet and theme on unmount.
 
 For a Pro Plus inventory, install `oofui kit add inventory`, inspect
 `oofui view inventory` and the installed `.oofui/private/kits/types.luau`, then

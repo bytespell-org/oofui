@@ -5,7 +5,7 @@ import { spawn, spawnSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { read, json, hash } from './files.mjs';
 
-async function executable() {
+export async function executable() {
   const paths = process.env.OOFUI_STUDIO ? [process.env.OOFUI_STUDIO] : process.platform === 'darwin'
     ? ['/Applications/RobloxStudio.app/Contents/MacOS/RobloxStudio'] : [];
   if (process.platform === 'win32' && process.env.LOCALAPPDATA) {

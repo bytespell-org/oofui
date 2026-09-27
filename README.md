@@ -2,9 +2,11 @@
 
 **Roblox controls, styled as a system.**
 
-Twenty React-Luau primitives, native Roblox input, and one shared theme contract.
-Core includes Default and Light under MIT. Override colors, typography, spacing,
-and materials without replacing your game’s controls.
+Twenty React-Luau components built on native Roblox instances: buttons, dialogs,
+progress bars, text fields, switches and more. Every component shares one theme,
+so you can restyle your whole game UI by changing a few tokens. Mouse, touch and
+gamepad input all work, and the source is copied into your project for you to
+edit. Core is free under MIT.
 
 ![Light island expedition UI](docs/media/light-island.png)
 
@@ -12,100 +14,157 @@ and materials without replacing your game’s controls.
 | --- | --- |
 | ![Default outpost](docs/media/default-outpost.png) | ![Light island](docs/media/light-island.png) |
 
-## Build with your agent
+## Quick start
 
-The free oofui project skill helps your agent find components, read their APIs,
-and compose native Roblox UI. `oofui init` installs it automatically.
-[Read the agent skill guide](https://oofui.bytespell.com/#/docs/agents).
-
-## Add it to your game
-
-The CLI adds editable source, resolves dependencies, connects Rojo, and installs
-an agent skill. No Node, npm, or Bun installation is needed.
-
-**Windows PowerShell**
-
-```powershell
-irm https://oofui.bytespell.com/install.ps1 | iex
-```
-
-**macOS / Linux**
+**1. Install the CLI** (it also installs Rojo and Wally if you're missing them;
+Node isn't needed):
 
 ```sh
+# macOS / Linux
 curl -fsSL https://oofui.bytespell.com/install.sh | sh
 ```
 
-The installer sets up missing Rojo and Wally tools. On macOS/Linux, open a new
-terminal afterward. Supports Windows x64, macOS Apple silicon/Intel, and Linux
-x64 with glibc. Wally requires Rosetta on Apple silicon; Linux needs curl and
-unzip. Roblox Studio itself requires Windows or macOS.
-
-Then, in your game folder:
-
-```sh
-mkdir my-game
-cd my-game
-oofui init
-oofui component add progressbar
-oofui add button container
-oofui build
-oofui studio open
+```powershell
+# Windows PowerShell
+irm https://oofui.bytespell.com/install.ps1 | iex
 ```
 
-The [docs site](https://oofui.bytespell.com/#/docs/installation) hosts the audited CLI
-and free source ZIPs. Rerun the installer to update; see the guide for uninstall
-instructions. To run the CLI from source, Node 22.12+ and `npm install -g ./cli`
-remain available. Npm registry publication is optional and remains pending.
-`oofui init` preserves an existing Rojo game's mappings and installs the project
-skill at `.agents/skills/oofui`. Ask your agent: "Use $oofui to add a player UI."
-Read the [skill](skills/oofui/SKILL.md) for the complete workflow.
+**2. Create a game and open it:**
 
-Use `oofui list`, `oofui docs progressbar`, `oofui view progressbar`, and
-`oofui info --json` to discover APIs and inspect the project. Use `--dry-run`
-before applying a change. Local modifications are protected by content hashes.
+```sh
+mkdir my-game && cd my-game
+oofui init          # Rojo game + starter HUD + Button, Container, ProgressBar, Text
+oofui build
+oofui studio open   # then press Play
+```
 
-Free files go in `vendor/oofui`. Purchased themes and Pro Plus kits are fetched
-from authenticated store endpoints into ignored `.oofui/private`, and mounted
-by Rojo alongside Core. Their code and original art are absent from this source
-tree and the CLI package. An installed item name does not grant access.
+The starter HUD is in `src/client/init.client.luau`. It has a progress bar, a
+button that adds XP, and a theme switcher. Edit that file to start building.
 
-Mount the provider inside the ScreenGui it styles:
+**3. Iterate with live sync** (optional). Run `oofui dev`, then click
+**Connect** in the Rojo Studio plugin. Your edits sync into Studio as you save.
+
+Already have a Rojo game? Run `oofui init` in it. It merges into your existing
+`default.project.json` and `wally.toml` and leaves your scripts alone.
+
+### No Rojo? Use the drop-in model
+
+1. Download `oofui-standalone-0.1.0.rbxm` from the
+   [latest release](https://github.com/bytespell-org/oofui/releases/tag/v0.1.0).
+2. Drag it into `ReplicatedStorage` in Studio (or use **Insert from File**).
+3. In a LocalScript in `StarterPlayerScripts`:
+
+```luau
+local Ui = require(game:GetService("ReplicatedStorage").OofUi)
+local e = Ui.React.createElement -- React is bundled with the model
+
+Ui.mount(e(Ui.Button, { text = "Hello", onActivated = function() print("hi") end }))
+```
+
+The model includes every free component plus React 17.2.1, so there's nothing
+else to install.
+
+### Using Wally
+
+```toml
+[dependencies]
+OofUi = "bytespell/oof-ui-primitives@0.1.0"
+```
+
+Then `require(ReplicatedStorage.Packages.OofUi)`. React and ReactRoblox are
+installed with it.
+
+## Using components
 
 ```luau
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local React = require(ReplicatedStorage.Packages.React)
-local ReactRoblox = require(ReplicatedStorage.Packages.ReactRoblox)
 local Ui = require(ReplicatedStorage.OofUi)
+local e = React.createElement
 
-local theme = Ui.styles.createTheme({
-    theme = Ui.styles.themes.light,
-    overrides = { CnColorAccent = Color3.fromRGB(84, 116, 255) },
-})
-local sheet = Ui.styles.createStyleSheet(theme)
-local screen = Instance.new("ScreenGui")
-screen.ResetOnSpawn = false
-screen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-screen.ScreenInsets = Enum.ScreenInsets.CoreUISafeInsets
-screen.SafeAreaCompatibility = Enum.SafeAreaCompatibility.None
-screen.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
-local root = ReactRoblox.createRoot(screen)
-root:render(React.createElement(Ui.styles.StyleProvider, {
-    styleSheet = sheet,
-}, {
-    Continue = React.createElement(Ui.Button, {
-        text = "Continue",
-        onActivated = function() print("Ready to play") end,
-    }),
-}))
--- On permanent removal: root:unmount(); sheet:Destroy(); theme:Destroy(); screen:Destroy()
+local ui = Ui.mount(
+	e(Ui.Button, {
+		text = "Continue",
+		onActivated = function()
+			print("Ready to play")
+		end,
+	}),
+	{ theme = "light" }
+)
 ```
 
-The public Wally release `bytespell/oof-ui-primitives@0.1.0` is being prepared.
-Until published, use the CLI above.
+`Ui.mount` creates the ScreenGui (with sibling layering and safe-area insets set
+up correctly), the theme, the style sheet and the React root. It returns a handle:
 
-## Explore the example
+```luau
+ui:render(e(App, { coins = 120 }))  -- re-render with new props
+ui:setTheme("default", {           -- switch themes; component state is kept
+	CnColorAccent = Color3.fromRGB(84, 116, 255),
+})
+ui:unmount()                        -- destroys everything it created
+```
 
-Install [Rokit](https://github.com/rojo-rbx/rokit) and a current Roblox Studio:
+`Ui.React` and `Ui.ReactRoblox` are the React copies the library uses. Mounting
+by hand still works if you'd rather manage your own ScreenGui. See
+[the composition guide](skills/oofui/references/composition.md).
+
+### Finding what you need
+
+```sh
+oofui list                 # every component and theme, with a one-line summary
+oofui docs dialog          # props (with allowed values) and a copy-paste example
+oofui add dialog switch    # install; dependencies come along automatically
+```
+
+Typos get suggestions (`oofui add swich` → *Did you mean switch?*). Every
+command accepts `--json`. `--dry-run` previews writes, and files you've edited
+are never overwritten unless you pass `--overwrite`.
+
+## The components
+
+| Component | What it's for |
+| --- | --- |
+| Button, IconButton | Actions with variants, sizes, icons, loading state and badge counts |
+| HoldButton | Press-and-hold confirmation for risky actions (sell, delete, prestige) |
+| Container | Themed panel that auto-sizes and stacks its children |
+| Text | Display, heading, body, subtext and caption styles with semantic tones |
+| ProgressBar, RadialProgress | XP, health, loading, cooldowns and timers |
+| Dialog | Modal with footer actions; dismissable with the backdrop, Escape or gamepad B |
+| TextField | Single- or multi-line input with invalid and read-only states |
+| Checkbox, Switch, RadioGroup | Settings and choices, controlled or uncontrolled |
+| Field, FieldLabel, FieldDescription, FieldError, FieldContent, FieldGroup | Labeled form rows and settings pages |
+| Separator | Dividers |
+
+Button, IconButton and HoldButton accept `badge = true` for an unread dot or
+`badge = 12` for a count. Zero clears it. Counts cap at `99+`, and `badgeMax`
+changes the limit.
+
+## Theming
+
+Themes are sets of tokens: colors, typography, spacing and materials. Start
+from a theme and override only what you need:
+
+```luau
+Ui.mount(e(App), {
+	theme = "default",
+	overrides = { CnColorAccent = Color3.fromRGB(255, 140, 60) },
+})
+```
+
+Unknown theme ids or token names fail with a message that lists the valid
+choices.
+
+## Build with your agent
+
+`oofui init` installs a project skill at `.agents/skills/oofui`. It teaches
+coding agents how to find components, read their props, and compose and verify
+UI in Studio. Try asking: *"Use $oofui to add a settings dialog with music and
+SFX switches."* [Agent guide](https://oofui.bytespell.com/#/docs/agents).
+
+## Explore the example game
+
+To see every component in a small, deterministic example world, clone this
+repository and run:
 
 ```sh
 rokit install
@@ -113,21 +172,10 @@ wally install
 rojo build showcase.project.json -o build/showcase.rbxlx
 ```
 
-Open that place once in Studio and press Play. One selector pairs Default with
-the outpost and Light with the island. Pin a quest, claim a daily reward, and
-toggle the demonstration setting; theme/world changes preserve control state. The worlds are deterministic, with a fixed third-person preview camera;
-the images here are native Studio captures. The example has no game backend.
-Close the example Studio window when finished.
-
-## The components
-
-Button, IconButton, Container, Text, ProgressBar, RadialProgress, HoldButton,
-TextField, Dialog, Checkbox, Switch, RadioGroup, RadioGroupItem, Separator,
-Field, FieldContent, FieldLabel, FieldDescription, FieldError, and FieldGroup.
-
-Button, IconButton, and HoldButton accept `badge = true` for an unread dot or
-`badge = 12` for a count. Zero clears it. Counts cap at `99+` by default;
-`badgeMax` changes the limit. The badge inherits the theme and native UIScale.
+Open the place in Studio and press Play. A theme selector pairs Default with an
+outpost and Light with an island. Pin a quest, claim a daily reward, and toggle
+a setting; theme and world changes keep control state. The example has no game
+backend.
 
 ## The Pro collection
 
@@ -139,9 +187,12 @@ Button, IconButton, and HoldButton accept `badge = true` for an unread dot or
 | --- | --- |
 | ![Tide fishing harbor UI](docs/media/tide-harbor.png) | ![Ember foundry UI](docs/media/ember-forge.png) |
 
-Adventure, Bloom, Circuit, Grove, Arcade, Obsidian, Tide, and Ember are offered separately as one editable
-theme pack. They use the same components and theme contract. Their source is
-not part of Core. The collection is being prepared for sale.
+Adventure, Bloom, Circuit, Grove, Arcade, Obsidian, Tide and Ember are sold
+separately as one editable theme pack. They use the same components and theme
+contract, so switching is a single `setTheme` call. Pro Plus adds complete game
+kits: Inventory, Quest Log, Season Pass, Daily Rewards, Item Shop, Crafting,
+Collection, Upgrades, Inventory Bar, Player Card and Currency View. The
+collection is being prepared for sale; none of its source is in this repository.
 
 | Adventure | Bloom |
 | --- | --- |
@@ -151,13 +202,23 @@ not part of Core. The collection is being prepared for sale.
 | --- | --- |
 | ![Circuit outpost](docs/media/circuit-outpost.png) | ![Grove woodland conservatory](docs/media/grove-woodland.png) |
 
-Core source is [MIT licensed](LICENSE). Pro preview images illustrate the
-separately licensed theme collection; this export does not grant its source.
+## Platform notes
+
+The CLI supports Windows x64, macOS (Apple silicon and Intel) and Linux x64
+with glibc. Roblox Studio itself needs Windows or macOS. Wally needs Rosetta on
+Apple silicon, and Linux needs `curl` and `unzip`. After installing on
+macOS/Linux, open a new terminal. Rerun the installer to update. Run
+`oofui doctor` any time to check your tools. To run the CLI from source
+(Node 22.12+), use `npm install -g ./cli`.
 
 ## Contributing to Core and the CLI
 
-Edit native implementations in `src/`, then run `npm test`. Its pretest refreshes
-the CLI's free registry from the approved Wally source list. For a new component
-or dependency, update the item metadata and bundle file list in `cli/registry`.
-`npm run build:registry` refreshes source hashes without fetching paid content.
-The CI uses the pinned Rokit tools and checks the actual installed Rojo tree.
+Edit native implementations in `src/`, then run `npm test`. Its pretest
+refreshes the CLI's free registry from the approved Wally source list. For a new
+component or dependency, update the item metadata and bundle file list in
+`cli/registry`. `npm run build:registry` refreshes source hashes without
+fetching paid content. CI uses the pinned Rokit tools and checks the actual
+installed Rojo tree.
+
+Core source is [MIT licensed](LICENSE). Pro preview images illustrate the
+separately licensed theme collection; this repository does not grant its source.

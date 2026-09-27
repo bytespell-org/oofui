@@ -8,7 +8,7 @@ export type Preset = {
 }
 export type Theme = Preset
 export type Options = {
-	theme: Theme?,
+	theme: (Theme | string)?,
 	preset: Preset?,
 	overrides: Overrides?,
 }
@@ -54,9 +54,14 @@ local Theme = {
 }
 
 local function resolvePreset(preset: any): PresetData
-	assert(type(preset) == "table", "oof-ui theme preset must be a preset descriptor")
-	local data = presetDataById[preset.id]
-	assert(data ~= nil, string.format("Unknown oof-ui preset %q", tostring(preset.id)))
+	-- Accept "light" as well as Ui.styles.themes.light.
+	local id = if type(preset) == "string" then preset elseif type(preset) == "table" then preset.id else nil
+	assert(id ~= nil, "oof-ui theme must be a theme id string or a Ui.styles.themes entry")
+	local data = presetDataById[id]
+	assert(
+		data ~= nil,
+		string.format("Unknown oof-ui theme %q. Installed themes: %s", tostring(id), table.concat(ids, ", "))
+	)
 	return data
 end
 
