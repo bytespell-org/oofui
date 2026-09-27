@@ -68,7 +68,7 @@ else to install.
 
 ```toml
 [dependencies]
-OofUi = "bytespell/oof-ui-primitives@0.1.0"
+OofUi = "bytespell-org/oof-ui-primitives@0.1.0"
 ```
 
 Then `require(ReplicatedStorage.Packages.OofUi)`. React and ReactRoblox are

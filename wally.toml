@@ -1,5 +1,5 @@
 [package]
-name = "bytespell/oof-ui-primitives"
+name = "bytespell-org/oof-ui-primitives"
 description = "Themeable React-Luau GUI primitives built on native Roblox controls"
 version = "0.1.0"
 license = "MIT"
