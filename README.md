@@ -64,15 +64,6 @@ Ui.mount(e(Ui.Button, { text = "Hello", onActivated = function() print("hi") end
 The model includes every free component plus React 17.2.1, so there's nothing
 else to install.
 
-### Using Wally
-
-```toml
-[dependencies]
-OofUi = "bytespell-org/oof-ui-primitives@0.1.0"
-```
-
-Then `require(ReplicatedStorage.Packages.OofUi)`. React and ReactRoblox are
-installed with it.
 
 ## Using components
 
